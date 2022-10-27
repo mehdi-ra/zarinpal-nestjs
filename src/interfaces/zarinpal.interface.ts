@@ -1,4 +1,4 @@
-export interface ZarinPalRequestResult {
+export interface ZarinpalRequestResult {
   /**
    * The status code that returned after sending request.
    */

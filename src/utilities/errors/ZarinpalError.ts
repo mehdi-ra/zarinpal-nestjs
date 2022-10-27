@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import { ZarinPal } from 'src/core';
-import { ZarinPalErrorCode } from 'src/interfaces';
+import { ZarinpalErrorCode } from 'src/interfaces';
 
-export abstract class ZarinPalError {
+export abstract class ZarinpalError {
   constructor(protected code: number) {}
 
   /**
@@ -11,9 +11,9 @@ export abstract class ZarinPalError {
    */
   private lookForError(statusCode: number) {
     try {
-      const error: ZarinPalErrorCode | undefined = _.find(
+      const error: ZarinpalErrorCode | undefined = _.find(
         ZarinPal.statusCodes,
-        { code: statusCode },
+        { status: statusCode },
       );
       if (!error) {
         throw new Error(`Error with code ${statusCode} not found !`);

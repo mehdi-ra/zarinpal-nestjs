@@ -1,4 +1,4 @@
-export interface ZarinPalErrorCode {
-  code: number;
+export interface ZarinpalErrorCode {
+  status: number;
   message: string;
 }

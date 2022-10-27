@@ -1,16 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ZarinPalProvidersKey } from 'src/core/constants/providers.const';
+import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
 
 @Injectable()
-export class ZarinPalService {
+export class ZarinpalService {
   constructor(
-    @Inject(ZarinPalProvidersKey.CALLBACK_URL)
+    @Inject(ZarinpalProvidersKey.CALLBACK_URL)
     private readonly callbackUrl: string,
 
-    @Inject(ZarinPalProvidersKey.SOAP_SERVER_URL)
+    @Inject(ZarinpalProvidersKey.SOAP_SERVER_URL)
     private readonly SoapServerUrl: string,
 
-    @Inject(ZarinPalProvidersKey.API_KEY)
+    @Inject(ZarinpalProvidersKey.API_KEY)
     private readonly apiKey: string,
   ) {}
 

@@ -1,37 +1,37 @@
-import { ZarinPalService } from '../services/zarinpal.service';
+import { ZarinpalService } from '../services/zarinpal.service';
 import { DynamicModule, Module } from '@nestjs/common';
-import { ZarinPalOptions } from 'src/interfaces';
-import { ZarinPalProvidersKey } from './constants/providers.const';
+import { ZarinpalModuleOptions } from 'src/interfaces';
+import { ZarinpalProvidersKey } from './constants/providers.const';
 import { ZarinPal } from './constants';
 import { SoapModule } from 'nestjs-soap';
 
 @Module({})
-export class ZarinPalModule {
-  static forRoot(options: ZarinPalOptions): DynamicModule {
+export class ZarinpalModule {
+  static forRoot(options: ZarinpalModuleOptions): DynamicModule {
     return {
       imports: [
         SoapModule.register({
-          clientName: ZarinPalProvidersKey.SOAP_CLIENT,
+          clientName: ZarinpalProvidersKey.SOAP_CLIENT,
           uri: ZarinPal.zarinpalSoapServer,
         }),
       ],
       controllers: [],
-      module: ZarinPalModule,
+      module: ZarinpalModule,
       providers: [
-        ZarinPalService,
+        ZarinpalService,
 
         {
-          provide: ZarinPalProvidersKey.CALLBACK_URL,
+          provide: ZarinpalProvidersKey.CALLBACK_URL,
           useValue: options.callBackUrl,
         },
 
         {
-          provide: ZarinPalProvidersKey.SOAP_SERVER_URL,
+          provide: ZarinpalProvidersKey.SOAP_SERVER_URL,
           useValue: ZarinPal.zarinpalSoapServer,
         },
 
         {
-          provide: ZarinPalProvidersKey.API_KEY,
+          provide: ZarinpalProvidersKey.API_KEY,
           useValue: options.apiKey,
         },
       ],
