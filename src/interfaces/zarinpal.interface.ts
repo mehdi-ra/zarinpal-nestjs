@@ -1,12 +1,12 @@
 export interface ZarinPalRequestResult {
+  /**
+   * The status code that returned after sending request.
+   */
   status: number;
 
   /**
    * Json data including Transaction extra information
    * like Payment Gate type and time.
-   *
-   * example:
-   * "{"authority": "000000000000000000000000234234", "Amount": "100", "Channel": "WebGate", "Date": "..."}"
    */
   authorities: string;
 }
