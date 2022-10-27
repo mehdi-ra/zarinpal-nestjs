@@ -1,2 +1,2 @@
-export * from './module.options';
-export * from './errors';
+export * from './module-options.interface';
+export * from './errors.interface';
