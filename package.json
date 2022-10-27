@@ -38,8 +38,7 @@
   "dependencies": {
     "@types/superagent": "^4.1.15",
     "nestjs-soap": "^3.0.0",
-    "rxjs": "^7.5.7",
-    "superagent": "^8.0.3"
+    "rxjs": "^7.5.7"
   },
   "devDependencies": {
     "@nestjs/common": "^6.0.0",

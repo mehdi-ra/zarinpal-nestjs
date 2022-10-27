@@ -23,22 +23,6 @@ Zarinpal NodeJS payment app is running on port: ' + port + '\nThanks for using t
 You also have the option to change the port in appConfig.js file.\
 		'));
 	},
-	accFiles: function() {
-		app.get('/acc/:type/:path', function (req, res) {
-			var filePath = 'acc/' + req.params.path + '.' + req.params.type;
-			if(fs.existsSync(filePath)) {
-				var fileData = fs.readFileSync(filePath);
-				var fileMimeType = mime.lookup(filePath);
-				res.writeHeader(200, {'Content-Type': fileMimeType});
-				res.write(fileData);
-				res.end();
-			} else {
-				res.writeHeader(404, {'Content-Type': 'text/html'});
-				res.write('404');
-				res.end();
-			}
-		});
-	},
 	userGUI: function() {
 		app.get('/x/:path', function (req, res) {
 			var filePath = 'views/' + req.params.path + '.ejs';

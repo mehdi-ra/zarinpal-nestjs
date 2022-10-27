@@ -3,12 +3,18 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { ZarinPalOptions } from 'src/interfaces';
 import { ZarinPalProvidersKey } from './constants/providers.const';
 import { ZarinPal } from './constants';
+import { SoapModule } from 'nestjs-soap';
 
 @Module({})
 export class ZarinPalModule {
   static forRoot(options: ZarinPalOptions): DynamicModule {
     return {
-      imports: [],
+      imports: [
+        SoapModule.register({
+          clientName: options.clientName,
+          uri: ZarinPal.zarinpalSoapServer,
+        }),
+      ],
       controllers: [],
       module: ZarinPalModule,
       providers: [
