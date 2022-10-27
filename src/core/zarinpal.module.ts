@@ -11,7 +11,7 @@ export class ZarinPalModule {
     return {
       imports: [
         SoapModule.register({
-          clientName: options.clientName,
+          clientName: ZarinPalProvidersKey.SOAP_CLIENT,
           uri: ZarinPal.zarinpalSoapServer,
         }),
       ],

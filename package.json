@@ -36,7 +36,9 @@
     "@nestjs/common": "^6.0.0"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.186",
     "@types/superagent": "^4.1.15",
+    "lodash": "^4.17.21",
     "nestjs-soap": "^3.0.0",
     "rxjs": "^7.5.7"
   },
