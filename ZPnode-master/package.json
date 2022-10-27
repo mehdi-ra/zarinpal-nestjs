@@ -1,0 +1,21 @@
+{
+  "name": "zpnode",
+  "version": "1.1.0",
+  "description": "Zarinpal NodeJS payment app",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adnan Babakan",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "jdate": "0.0.2",
+    "mime-types": "^2.1.17",
+    "mysql": "^2.15.0",
+    "soap": "^0.23.0"
+  }
+}

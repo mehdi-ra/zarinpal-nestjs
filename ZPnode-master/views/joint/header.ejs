@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+  <head>
+    <title><%= zpTitle %></title>
+    <link href="/acc/css/core" rel="stylesheet" type="text/css" />
+    <link href="/acc/css/bootstrap" rel="stylesheet" type="text/css" />
+    <link href="/acc/css/unsemantic-grid-responsive-rtl" rel="stylesheet" type="text/css" />
+    <script src="/acc/js/jquery"></script>
+    <script>
+      $(document).ready(function() {
+        $('input, textarea').click(function() {
+          $('input, textarea').removeClass('active');
+          $(this).addClass('active');
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="maincontainer"><div class="box">
+      <div class="grid-container">
+        <div class="grid-75">

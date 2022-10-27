@@ -1,0 +1,31 @@
+<% include joint/header %>
+
+<div class="gradienttext" style="font-size: 20px;"><span>تایید اطلاعات</span></div><br>
+
+<%= zpClientFirstName %> <%= zpClientLastName %> عزیز شما در حال پرداخت مبلغ <span style="border-bottom: 1px dotted #333333;"><%= zpClientAmount %> تومان</span> هستید.<br />
+همچنین اطلاعات تماس شما که به شرح زیر است ثبت خواهد شد و تنها برای برقراری تماس با شما مورد استفاده قرار خواهد گرفت:<br>
+<table>
+  <tr>
+    <td>ایمیل:</td>
+    <td style="text-align: left;"><%= zpClientEmail %></td>
+  </tr>
+  <tr>
+    <td>شماره تلفن:</td>
+    <td style="text-align: left;"><%= zpClientPhone %></td>
+  </tr>
+</table>
+<br>
+همچنین توضیحات زیر نیز جهت پیگیری های بعدی در این تراکنش ثبت خواهد شد:<br>
+<%= zpClientDescription %>
+<br><br>
+<form action="/x/handle/accepted" method="POST">
+<input type="hidden" name="acfirstname" value="<%= zpClientFirstName %>" />
+<input type="hidden" name="aclastname" value="<%= zpClientLastName %>" />
+<input type="hidden" name="acemail" value="<%= zpClientEmail %>" />
+<input type="hidden" name="acphone" value="<%= zpClientPhone %>" />
+<input type="hidden" name="acamount" value="<%= zpClientAmount %>" />
+<input type="hidden" name="acdescription" value="<%= zpClientDescription %>" />
+<button type="submit" class="btn btn-primary">اطلاعات بالا را تایید می کنم</button>
+</form>
+
+<% include joint/footer %>

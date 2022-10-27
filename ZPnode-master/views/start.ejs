@@ -1,0 +1,38 @@
+<% include joint/header %>
+
+<div class="gradienttext" style="font-size: 20px;"><span>خوش آمدید!</span></div><br>
+
+<form action="/x/handle" method="POST" class="flat">
+  <table>
+    <tr>
+      <td><label for="firstname">نام: </label></td>
+      <td><input type="text" name="firstname" id="firstname" required /></td>
+    </tr>
+    <tr>
+      <td><label for="lastname">نام خانوادگی: </label></td>
+      <td><input type="text" name="lastname" id="lastname" required /></td>
+    </tr>
+    <tr>
+      <td><label for="email">ایمیل: </label></td>
+      <td><input type="email" name="email" id="email" style="text-align: left;" required /></td>
+    </tr>
+    <tr>
+      <td><label for="phone">شماره تلفن: </label></td>
+      <td><input type="text" name="phone" id="phone" style="text-align: left;" required /></td>
+    </tr>
+    <tr>
+      <td><label for="amount">مبلغ ( تومان ): </label></td>
+      <td><input type="text" name="amount" id="amount" style="text-align: left;" required /></td>
+    </tr>
+    <tr>
+      <td><label for="description">توضیحات: </label></td>
+      <td><textarea name="description" id="description" required ></textarea></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit" class="btn btn-primary">مرحله بعد</button></td>
+    </tr>
+  </table>
+</form>
+
+<% include joint/footer %>

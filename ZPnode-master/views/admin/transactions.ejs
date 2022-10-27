@@ -1,0 +1,31 @@
+<% include ../joint/header %>
+
+<script>
+  $(document).ready(function() {
+    $('.grid-25').hide();
+  });
+</script>
+
+<div class="gradienttext" style="font-size: 20px;"><span>تراکنش ها</span></div><br>
+
+<table class="admin" style="width: 100%;">
+  <thead>
+    <tr>
+      <th>ردیف</th>
+      <th>شماره تراکنش</th>
+      <th>نام و نام خانوادگی</th>
+      <th>ایمیل</th>
+      <th>شماره تلفن</th>
+      <th>مبلغ</th>
+      <th>تاریخ</th>
+      <th>توضیحات</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- transactionsData %>
+  </tbody>
+</table>
+<br>
+<a href="<%= adminPanelPath %>/exit"><button type="button" class="btn btn-primary">خروج</button></a>
+
+<% include ../joint/footer %>

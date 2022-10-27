@@ -1,0 +1,141 @@
+@font-face {
+	font-family: 'IranSans';
+	src: url('/acc/ttf/iransans?#') format('eot'),
+	url('/acc/ttf/iransans') format('truetype'),
+	url('/acc/ttf/iransans') format('woff');
+}
+
+::selection {
+  background: #00cbff !important;
+  color: #ffffff !important;
+}
+::-moz-selection {
+  background: #00cbff !important;
+  color: #ffffff !important;
+}
+
+body {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    font-family: 'IranSans', tahoma, Arial !important;
+}
+
+a, a:visited {
+	text-decoration: none;
+}
+
+ul {
+    margin:0;
+    padding: 0;
+}
+
+.clearfix {
+	clear: both;
+}
+
+@media (min-width: 1200px) {
+
+#maincontainer {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+#maincontainer .box {
+  width: 60%;
+  height: auto;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  text-align: right;
+  padding: 15px;
+  color: #555555;
+}
+
+.leftbox {
+	border-right: 1px solid #eeeeee;
+	padding: 5px;
+}
+
+}
+
+@media (max-width: 1200px) {
+
+#maincontainer {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+	padding: 5px;
+}
+
+#maincontainer .box {
+  width: auto;
+  height: auto;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  text-align: right;
+  padding: 15px;
+  color: #555555;
+}
+
+.leftbox {
+	border-top: 1px solid #eeeeee;
+	margin-top: 5px;
+	padding: 5px;
+}
+
+}
+
+#maincontainer .box .gradienttext {
+  background: -webkit-linear-gradient(#00d149, #0059ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#maincontainer .box footer {
+  color: #aaaaaa;
+  font-size: 12px;
+  text-align: left;
+}
+
+#maincontainer .box footer .hr {
+  background: #eeeeee;
+  width: auto;
+  height: 1px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+form.flat input[type="text"], form.flat input[type="email"], form.flat input[type="password"], form.flat textarea {
+	background: #ffffff;
+	width: auto;
+	height: auto;
+	font-size: 14px;
+	color: #333333;
+	border: 1px solid #aaaaaa;
+	border-radius: 7px;
+	margin-right: 15px;
+	padding: 5px;
+}
+
+form.flat input[type="text"].active, form.flat input[type="email"].active, form.flat input[type="password"].active, form.flat textarea.active {
+	border: 1px solid #00cbff;
+}
+
+table.admin tr td, table.admin tr th {
+	border: 1px solid #aaaaaa;
+	padding: 3px;
+	text-align: right;
+	border-radius: 7px;
+}

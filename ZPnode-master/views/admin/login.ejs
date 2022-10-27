@@ -1,0 +1,42 @@
+<% include ../joint/header %>
+
+<div class="gradienttext" style="font-size: 20px;"><span>ورود به بخش مدیریت</span></div><br>
+
+<script type="text/javascript">
+  switch('<%= errorNo %>') {
+    case 'err0':
+      var errorPm = '';
+    break;
+    case 'err1':
+      var errorPm = '\
+      <div class="alert alert-dismissible alert-danger">\
+        نام کاربری و یا رمز عبور اشتباه است.\
+      </div>\
+      ';
+    break;
+  }
+  $(document).ready(function() {
+    $('div#errorBox').append(errorPm);
+  });
+</script>
+
+<div id="errorBox"></div>
+
+<form action="/<%= adminPanelPath %>/login" method="POST" class="flat">
+  <table>
+    <tr>
+      <td><label for="username">نام کاربری: </label></td>
+      <td><input type="text" name="zpAdminUsername" id="username" required /></td>
+    </tr>
+    <tr>
+      <td><label for="password">رمز عبور: </label></td>
+      <td><input type="password" name="zpAdminPassword" id="password" required /></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit" class="btn btn-primary">ورود</button></td>
+    </tr>
+  </table>
+</form>
+
+<% include ../joint/footer %>
