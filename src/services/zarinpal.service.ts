@@ -1,5 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
+import {
+  ZarinpalRequestOptions,
+  ZarinpalRequestResult,
+} from 'src/interfaces/zarinpal.interface';
+import { SoapClientService } from './soapclient.service';
 
 @Injectable()
 export class ZarinpalService {
@@ -7,13 +12,27 @@ export class ZarinpalService {
     @Inject(ZarinpalProvidersKey.CALLBACK_URL)
     private readonly callbackUrl: string,
 
-    @Inject(ZarinpalProvidersKey.SOAP_SERVER_URL)
-    private readonly SoapServerUrl: string,
+    @Inject(ZarinpalProvidersKey.LOGGER)
+    private readonly logger: Logger,
 
-    @Inject(ZarinpalProvidersKey.API_KEY)
-    private readonly apiKey: string,
+    private soapService: SoapClientService,
   ) {}
 
-  public async sendRequest() {}
+  public async openTransaction(
+    options: ZarinpalRequestOptions,
+  ): Promise<ZarinpalRequestResult> {
+    
+    try {
+      const requestResult = this.soapService.sendRequest(options)
+      
+    }
+  }
+
   public async verifyRequest() {}
+
+  // ================================ Private methods|
+
+  private parseJson() {}
+  private generateLastCode() {}
+  private generateRedirectUrl() {}
 }

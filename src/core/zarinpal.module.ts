@@ -1,5 +1,5 @@
 import { ZarinpalService } from '../services/zarinpal.service';
-import { DynamicModule, Module } from '@nestjs/common';
+import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { ZarinpalModuleOptions } from 'src/interfaces';
 import { ZarinpalProvidersKey } from './constants/providers.const';
 import { ZarinPal } from './constants';
@@ -33,6 +33,11 @@ export class ZarinpalModule {
         {
           provide: ZarinpalProvidersKey.API_KEY,
           useValue: options.apiKey,
+        },
+
+        {
+          provide: ZarinpalProvidersKey.LOGGER,
+          useValue: new Logger('Zarinpal-payment'),
         },
       ],
     };
