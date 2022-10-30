@@ -10,7 +10,7 @@ export interface ZarinpalRequestResult {
    * Json data including Transaction extra information
    * like Payment Gate type and time.
    */
-  Authorities?: string;
+  Authorities: string;
 
   /**
    * Url when you want to redirect user for payment process.

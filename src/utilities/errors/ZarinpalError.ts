@@ -4,16 +4,11 @@ import { Logger } from '@nestjs/common';
 import { ZarinPal } from 'src/core';
 import { ZarinpalErrorCode } from 'src/interfaces';
 
-export abstract class ZarinpalError {
-  /**
-   * String message returned from Zarinpal payment.
-   */
-  public message: string;
-
+export class ZarinpalError extends Error {
   /**
    * Http status code that is suitable to income request error.
    */
-  public status: number;
+  public status!: number;
 
   /**
    * Logger that every log in this class should be
@@ -22,6 +17,7 @@ export abstract class ZarinpalError {
   protected logger = new Logger('Zarinpal Error');
 
   constructor(protected code: number) {
+    super();
     this.lookForError(code);
   }
 
@@ -29,7 +25,7 @@ export abstract class ZarinpalError {
    * This method search's for the error in constants.
    * @param statusCode Income status code from request.
    */
-  private lookForError(statusCode: number) {
+  private lookForError(statusCode?: number) {
     try {
       const error: ZarinpalErrorCode | undefined = _.find(
         ZarinPal.statusCodes,
@@ -42,11 +38,11 @@ export abstract class ZarinpalError {
 
       this.message = error.message;
       this.status = error.httpStatusCode;
+      this.name = error.status.toString(); // Set name of error
 
       this.logger.error(error.message + Date.now().toString());
     } catch (e) {
-      
-      this.message = e?.toString() || e;
+      this.message = (e as unknown) as string;
       this.status = 500;
 
       this.logger.error(e);

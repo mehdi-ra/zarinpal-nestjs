@@ -1,8 +1,14 @@
-import { ZarinpalErrorCode } from 'src/interfaces';
+import { ZarinpalErrorCode, ZarinPalURL } from 'src/interfaces';
 
 export namespace ZarinPal {
-  export const zarinpalSoapServer =
+  export const zarinpalSoapServer: ZarinPalURL =
     'https://zarinpal.com/pg/services/WebGate/wsdl';
+
+  export const zarinpalStartPay: ZarinPalURL =
+    'https://zarinpal.com/pg/StartPay/:Authority/ZarinGate';
+
+  export const zarinpalStartPayZarinGate: ZarinPalURL =
+    'https://zarinpal.com/pg/StartPay/:Authority/ZarinGate';
 
   /**
    * This urls used in type ZarinpalURLS
