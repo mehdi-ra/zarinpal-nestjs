@@ -6,7 +6,7 @@ import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
 import {
   ZarinpalRequestResult,
   ZarinpalRequestOptions,
-} from 'src/interfaces/zarinpal.interface';
+} from 'src/core/schema/interfaces/zarinpal.interface';
 import { ZarinpalError } from 'src/utilities';
 
 @Injectable()

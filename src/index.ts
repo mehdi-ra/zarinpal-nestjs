@@ -1,3 +1,3 @@
 export * from './core';
 export * from './utilities';
-export * from './interfaces';
+export * from './core/schema/interfaces';

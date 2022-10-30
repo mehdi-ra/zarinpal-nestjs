@@ -1,4 +1,4 @@
-import { ZarinpalErrorCode, ZarinPalURL } from 'src/interfaces';
+import { ZarinpalErrorCode, ZarinPalURL } from 'src/core/schema/interfaces';
 
 export namespace ZarinPal {
   export const zarinpalSoapServer: ZarinPalURL =

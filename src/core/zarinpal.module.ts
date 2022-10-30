@@ -1,6 +1,6 @@
-import { ZarinpalService } from '../services/zarinpal.service';
+import { ZarinpalService } from './services/zarinpal.service';
 import { DynamicModule, Logger, Module } from '@nestjs/common';
-import { ZarinpalModuleOptions } from 'src/interfaces';
+import { ZarinpalModuleOptions } from 'src/core/schema/interfaces';
 import { ZarinpalProvidersKey } from './constants/providers.const';
 import { ZarinPal } from './constants';
 import { SoapModule } from 'nestjs-soap';

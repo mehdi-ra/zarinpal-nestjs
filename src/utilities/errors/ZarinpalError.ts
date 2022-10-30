@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { Logger } from '@nestjs/common';
 import { ZarinPal } from 'src/core';
-import { ZarinpalErrorCode } from 'src/interfaces';
+import { ZarinpalErrorCode } from 'src/core/schema/interfaces';
 
 export class ZarinpalError extends Error {
   /**
