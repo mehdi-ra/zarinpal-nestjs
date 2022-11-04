@@ -19,10 +19,12 @@ export interface ZarinpalRequestResult {
 }
 
 /**
- * Request option when you are sending pay request
- * to Zarinpal.
+ * Request option when you are sending request
+ * to Zarinpal in first time or when you want to
+ * open unfinished or not payed transaction on Zarinpal
+ * servers.
  */
-export interface ZarinpalRequestOptions {
+export interface ZarinpalOpenTransactionOptions {
   MerchantID: number;
   Amount: number;
   Email: string;
@@ -32,6 +34,12 @@ export interface ZarinpalRequestOptions {
   // Url for GateWay or regular ?
   GateWay?: boolean;
   CallbackURL?: string;
+}
+
+export interface ZarinpalVerifyTransactionOptions {
+  MerchantID: string;
+  Authority: string;
+  Amount: number;
 }
 
 /**

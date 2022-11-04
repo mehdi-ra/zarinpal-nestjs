@@ -31,13 +31,8 @@ export class ZarinpalModule {
         },
 
         {
-          provide: ZarinpalProvidersKey.API_KEY,
-          useValue: options.apiKey,
-        },
-
-        {
           provide: ZarinpalProvidersKey.LOGGER,
-          useValue: new Logger('Zarinpal-payment'),
+          useValue: new Logger('Zarinpal-Payment'),
         },
       ],
     };

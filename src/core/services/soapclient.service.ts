@@ -2,9 +2,10 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinPal, ZarinpalProvidersKey } from 'src/core';
 import { Client } from 'nestjs-soap';
 import {
-  ZarinpalRequestOptions,
+  ZarinpalOpenTransactionOptions,
   ZarinpalRequestResult,
   ZarinPalURL,
+  ZarinpalVerifyTransactionOptions,
 } from 'src/core/schema/interfaces/zarinpal.interface';
 import { ZarinpalError } from 'src/utilities';
 
@@ -24,10 +25,10 @@ export class SoapClientService {
   /**
    * Open Transaction on zarinpal soap api.
    * This method
-   * @param data {Omit<ZarinpalRequestOptions, 'GateWay'>}
+   * @param data {Omit<ZarinpalOpenTransactionOptions, 'GateWay'>}
    */
   public async sendOpenTransactionRequest(
-    data: Omit<ZarinpalRequestOptions, 'GateWay'>,
+    data: Omit<ZarinpalOpenTransactionOptions, 'GateWay'>,
   ) {
     try {
       const requestResult = await this.request(data);
@@ -50,7 +51,7 @@ export class SoapClientService {
    * Verify transaction after user done the payment
    * process and then there is nothing.
    */
-  public async verifyTransaction(data: unknown) {
+  public async verifyTransaction(data: ZarinpalVerifyTransactionOptions) {
     const requestResult = await this.request(data);
   }
 

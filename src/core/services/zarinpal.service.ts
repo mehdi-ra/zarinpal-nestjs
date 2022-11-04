@@ -5,7 +5,7 @@ import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
 
 import {
   ZarinpalRequestResult,
-  ZarinpalRequestOptions,
+  ZarinpalOpenTransactionOptions,
 } from 'src/core/schema/interfaces/zarinpal.interface';
 import { ZarinpalError } from 'src/utilities';
 
@@ -28,11 +28,11 @@ export class ZarinpalService {
    * - Get results, generate and return user start pay
    *   url. You should redirect user to this project.
    *
-   * @param {ZarinpalRequestOptions} options
+   * @param {ZarinpalOpenTransactionOptions} options
    * @return {string} Redirect url
    */
   public async openTransaction(
-    options: ZarinpalRequestOptions,
+    options: ZarinpalOpenTransactionOptions,
   ): Promise<string> {
     try {
       const result = await this.soapService.sendOpenTransactionRequest(options);
