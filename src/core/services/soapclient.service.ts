@@ -55,7 +55,7 @@ export class SoapClientService {
     try {
       return await this.request(data);
     } catch (e) {
-      throw new Error('Include Error ');
+      throw e;
     }
   }
 
