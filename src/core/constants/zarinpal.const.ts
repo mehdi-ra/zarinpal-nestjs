@@ -1,24 +1,22 @@
-import { ZarinpalErrorCode, ZarinPalURL } from 'src/core/schema/interfaces';
+import { ZarinpalErrorCode, ZarinpalURLS } from 'src/core/schema/interfaces';
 
 export namespace ZarinPal {
-  export const zarinpalSoapServer: ZarinPalURL =
-    'https://zarinpal.com/pg/services/WebGate/wsdl';
+  export const urls: ZarinpalURLS = {
+    openTransaction: {
+      default: 'https://api.zarinpal.com/pg/v4/payment/request.json',
+      sandbox: 'https://sandbox.zarinpal.com/pg/v4/payment/request.json',
+    },
 
-  export const zarinpalStartPay: ZarinPalURL =
-    'https://zarinpal.com/pg/StartPay/:Authority/ZarinGate';
+    verifyTransaction: {
+      default: 'https://api.zarinpal.com/pg/v4/payment/verify.json',
+      sandbox: 'https://sandbox.zarinpal.com/pg/v4/payment/verify.json',
+    },
 
-  export const zarinpalStartPayZarinGate: ZarinPalURL =
-    'https://zarinpal.com/pg/StartPay/:Authority/ZarinGate';
-
-  /**
-   * This urls used in type ZarinpalURLS
-   * but you can use them as you whish
-   */
-  export const urls = [
-    'https://zarinpal.com/pg/StartPay/:Authority',
-    'https://zarinpal.com/pg/services/WebGate/wsdl',
-    'https://zarinpal.com/pg/StartPay/:Authority/ZarinGate',
-  ] as const;
+    startPay: {
+      default: 'https://www.zarinpal.com/pg/StartPay/:Authority',
+      sandbox: 'https://sandbox.zarinpal.com/pg/StartPay/:Authority',
+    },
+  };
 
   export const statusCodes: ZarinpalErrorCode[] = [
     { status: -1, message: 'اطلاعات ارسال شده ناقص است.', httpStatusCode: 400 },
@@ -87,4 +85,8 @@ export namespace ZarinPal {
       httpStatusCode: 200,
     },
   ];
+
+  export const requestHeaders: { [key: string]: string } = {
+    'Content-Type': 'application/json',
+  };
 }

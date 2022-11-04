@@ -1,6 +1,5 @@
 import { ZarinPal } from 'src/core';
-import { SoapClientService } from './soapclient.service';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { HttpService, Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
 
 import {
@@ -9,6 +8,7 @@ import {
   ZarinpalVerifyTransactionOptions,
 } from 'src/core/schema/interfaces/zarinpal.interface';
 import { ZarinpalError } from 'src/utilities';
+import { HttpClientService } from './http-client.service';
 
 @Injectable()
 export class ZarinpalService {
@@ -20,15 +20,14 @@ export class ZarinpalService {
     @Inject(ZarinpalProvidersKey.LOGGER)
     private readonly logger: Logger,
 
-    private soapService: SoapClientService,
+    @Inject(ZarinpalProvidersKey.TRANSACTION_START_URL)
+    private readonly startUrl: string,
+
+    private readonly httpService: HttpClientService,
   ) {}
 
   /**
-   * The purpose of this method is simple:
-   * - Send and open transaction on zarinpal
-   * - Get results, generate and return user start pay
-   *   url. You should redirect user to this project.
-   *
+   * Open transaction on server and return databse
    * @param {ZarinpalOpenTransactionOptions} options
    * @return {string} Redirect url
    */
@@ -36,8 +35,11 @@ export class ZarinpalService {
     options: ZarinpalOpenTransactionOptions,
   ): Promise<string> {
     try {
-      const result = await this.soapService.sendOpenTransactionRequest(options);
-      return this.generateRedirectUrl(result);
+      // Setting callback_url
+      options.callback_url = this.callbackUrl;
+
+      const result = await this.httpService.openTransaction(options);
+      return this.generateStartPayUrl(result);
     } catch (e) {
       throw this.errorHandler(e);
     }
@@ -53,7 +55,7 @@ export class ZarinpalService {
    */
   public async verifyRequest(verifyOptions: ZarinpalVerifyTransactionOptions) {
     try {
-      return await this.soapService.verifyTransaction(verifyOptions);
+      return await this.httpService.verifyTransaction(verifyOptions);
     } catch (e) {
       throw this.errorHandler(e);
     }
@@ -61,19 +63,8 @@ export class ZarinpalService {
 
   // ================================ Private methods|
 
-  /**
-   * Generate url to update
-   */
-  private generateRedirectUrl(
-    data: ZarinpalRequestResult,
-    gate?: boolean,
-  ): string {
-    return !!gate
-      ? ZarinPal.zarinpalStartPayZarinGate
-      : ZarinPal.zarinpalStartPay.replace(
-          ':Authority',
-          data.Authorities.toString(),
-        );
+  private generateStartPayUrl(data: ZarinpalRequestResult): string {
+    return this.startUrl.replace(':Authority', data.authority.toString());
   }
 
   /**

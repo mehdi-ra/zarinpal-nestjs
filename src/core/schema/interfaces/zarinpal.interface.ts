@@ -1,23 +1,5 @@
 import { ZarinPal } from 'src/core';
 
-export interface ZarinpalRequestResult {
-  /**
-   * The status code that returned after sending request.
-   */
-  Status: number;
-
-  /**
-   * Json data including Transaction extra information
-   * like Payment Gate type and time.
-   */
-  Authorities: string;
-
-  /**
-   * Url when you want to redirect user for payment process.
-   */
-  url?: string;
-}
-
 /**
  * Request option when you are sending request
  * to Zarinpal in first time or when you want to
@@ -25,14 +7,41 @@ export interface ZarinpalRequestResult {
  * servers.
  */
 export interface ZarinpalOpenTransactionOptions {
-  MerchantID: number;
-  Amount: number;
-  Email?: string;
-  Mobile?: string;
+  merchant_id: string;
+  amount: number;
+  description: string;
+  callback_url: string;
+  metadata?: ZarinpalOpenRequestMetadata;
+}
 
-  // Url for GateWay or regular ?
-  GateWay?: boolean;
-  CallbackURL?: string;
+export interface ZarinpalRequestResult {
+  code: number;
+  message: string;
+  authority: string;
+  fee_type: 'Merchant';
+  fee: number;
+  errors?: unknown[];
+}
+
+export interface ZarinpalVerifyResult {
+  code: number;
+  message: string;
+
+  // SHA256 hash
+  card_hash: string;
+
+  // Masked card number like: '502229******5995'
+  card_pan: string;
+
+  ref_id: number;
+  fee_type: string;
+  fee: number;
+}
+
+export interface ZarinpalOpenRequestMetadata {
+  mobile?: string;
+  email?: string;
+  card_pan?: string;
 }
 
 export interface ZarinpalVerifyTransactionOptions {
@@ -45,4 +54,13 @@ export interface ZarinpalVerifyTransactionOptions {
  * Useful when you want to help user to chose
  * urls and avoid unwanted mistakes.
  */
-export type ZarinPalURL = typeof ZarinPal.urls[number];
+export interface ZarinpalURL {
+  sandbox: string;
+  default: string;
+}
+
+export interface ZarinpalURLS {
+  openTransaction: ZarinpalURL;
+  verifyTransaction: ZarinpalURL;
+  startPay: ZarinpalURL;
+}
