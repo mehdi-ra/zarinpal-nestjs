@@ -1,3 +1,8 @@
-# Zarin Pal payment API for NestJs
-This is simplified version of zarin pal for NestJs
-please support and leave a star if you like this repo.
+# درگاه زرین پال برای NestJs 
+با استفاده از این بسته نرم‌افزاری میتوانید به راحتی 
+
+## How to use
+
+
+### installation
+Install is very simple 

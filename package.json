@@ -1,8 +1,8 @@
 {
-  "name": "@nestjsplus/nestjs-package-starter",
-  "version": "1.0.0",
-  "description": "NestJS npm package starter",
-  "author": "John Biundo <johnfbiundo@gmail.com>",
+  "name": "zarinpal-nestjs",
+  "version": "0.0.11",
+  "description": "Zarinpal NestJs Adaptor for an easy use",
+  "author": "Mehdi Rahimi",
   "license": "MIT",
   "readmeFilename": "README.md",
   "main": "dist/test.js",
@@ -22,16 +22,19 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "keywords": [
-    "nestjs"
+    "nestjs",
+    "zarinpal",
+    "node",
+    "adaptor"
   ],
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nestjsplus/nestjs-package-starter"
+    "url": "https://github.com/me-dira/zarinpal-nestjs"
   },
-  "bugs": "https://github.com/nestjsplus/nestjs-package-starter",
+  "bugs": "https://github.com/me-dira/zarinpal-nestjs",
   "peerDependencies": {
     "@nestjs/common": "^6.0.0"
   },
