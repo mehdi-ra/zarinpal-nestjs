@@ -52,7 +52,11 @@ export class SoapClientService {
    * process and then there is nothing.
    */
   public async verifyTransaction(data: ZarinpalVerifyTransactionOptions) {
-    const requestResult = await this.request(data);
+    try {
+      return await this.request(data);
+    } catch (e) {
+      throw new Error('Include Error ');
+    }
   }
 
   // ---------------------------------------- Private methods|
@@ -67,7 +71,11 @@ export class SoapClientService {
     try {
       return await this.parseJson(this.client.ZPSendRequestAsync(data));
     } catch (e) {
-      throw new Error('Error in parsing income result to JSON !');
+      if (e && typeof e === 'object' && 'Status' in e) {
+        throw new ZarinpalError((e as ZarinpalRequestResult).Status);
+      } else {
+        throw e;
+      }
     }
   }
 
@@ -88,6 +96,10 @@ export class SoapClientService {
   }
 
   private parseJson(jsonData: string) {
-    return JSON.parse(jsonData);
+    try {
+      return JSON.parse(jsonData);
+    } catch (e) {
+      throw new Error('Error parsing JSON !');
+    }
   }
 }

@@ -1,6 +1,6 @@
 # Zarinpal Adaptor for `NestJs`.
 Use zarinpal payment features as easy as blink on Nestjs framework.
-Do not use this package for your Business packages due to this package is under development and it's not tested properly.
+Do not use this package for your Business packages due to this package is under development and it's not tested properly but stay `tunned` because we will release stable version in this weekend.
 
 ## Goals
 - Easy API.
