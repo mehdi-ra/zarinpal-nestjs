@@ -27,9 +27,8 @@ export interface ZarinpalRequestResult {
 export interface ZarinpalOpenTransactionOptions {
   MerchantID: number;
   Amount: number;
-  Email: string;
-  Phone: string;
-  Mobile: string;
+  Email?: string;
+  Mobile?: string;
 
   // Url for GateWay or regular ?
   GateWay?: boolean;

@@ -6,6 +6,7 @@ import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
 import {
   ZarinpalRequestResult,
   ZarinpalOpenTransactionOptions,
+  ZarinpalVerifyTransactionOptions,
 } from 'src/core/schema/interfaces/zarinpal.interface';
 import { ZarinpalError } from 'src/utilities';
 
@@ -42,12 +43,23 @@ export class ZarinpalService {
     }
   }
 
-  public async verifyRequest() {}
+  /**
+   * After you open a transaction using openTransaction,
+   * You need to get income result from your callback endpoint
+   * and use this method to confirm transaction.
+   *
+   * If not, Zarinpal will return the money back to user after
+   * a certain amount of time.
+   */
+  public async verifyRequest(verifyOptions: ZarinpalVerifyTransactionOptions) {
+    try {
+      return await this.soapService.verifyTransaction(verifyOptions);
+    } catch (e) {
+      throw this.errorHandler(e);
+    }
+  }
 
   // ================================ Private methods|
-
-  private parseJson() {}
-  private generateLastCode() {}
 
   /**
    * Generate url to update

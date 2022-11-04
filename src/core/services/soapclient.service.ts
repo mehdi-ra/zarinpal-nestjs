@@ -71,11 +71,7 @@ export class SoapClientService {
     try {
       return await this.parseJson(this.client.ZPSendRequestAsync(data));
     } catch (e) {
-      if (e && typeof e === 'object' && 'Status' in e) {
-        throw new ZarinpalError((e as ZarinpalRequestResult).Status);
-      } else {
-        throw e;
-      }
+      throw e;
     }
   }
 
