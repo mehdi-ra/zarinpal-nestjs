@@ -1,26 +1,39 @@
 import { Test } from '@nestjs/testing';
-import { fakeModuleOptions } from './fake/module-options';
+import { fakeModuleOptions } from './mock/module-options';
 import { HttpClientService } from '../core/services/http-client.service';
-
 import ModuleImportsFactory from 'src/core/module/imports';
 import ModuleProvidersFactory from 'src/core/module/providers';
+
+import { ZarinpalProvidersKey } from 'src/core';
 
 describe('HttpClientService', () => {
   let service!: HttpClientService;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
-      // imports: ModuleImportsFactory(),
+      imports: ModuleImportsFactory(),
       providers: ModuleProvidersFactory(fakeModuleOptions),
-    }).compile();
+    })
+      .useMocker(token => {
+        if (token === ZarinpalProvidersKey.AXIOS_TOKEN) {
+          return {
+            post: async () => {
+              return {
+                data: 1,
+              };
+            },
+          };
+        }
+      })
+      .compile();
 
     service = moduleRef.get(HttpClientService);
   });
 
-  test('Kon', async () => {
+  test('Sending request to update', async () => {
     const result = await service.openTransaction({
       options: fakeModuleOptions,
     });
-    expect(result).toBe(1);
+    expect(result.data).toBe(1);
   });
 });

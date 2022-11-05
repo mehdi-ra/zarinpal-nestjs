@@ -5,10 +5,17 @@ import { ZarinpalModuleOptions } from '../schema/interfaces';
 import { HttpClientService } from '../services/http-client.service';
 import { ZarinpalService } from '../services/zarinpal.service';
 
+import axios from 'axios';
+
 export default (function(options: ZarinpalModuleOptions) {
   return [
     ZarinpalService,
     HttpClientService,
+
+    {
+      provide: ZarinpalProvidersKey.AXIOS_TOKEN,
+      useValue: axios,
+    },
 
     {
       provide: ZarinpalProvidersKey.CALLBACK_URL,
