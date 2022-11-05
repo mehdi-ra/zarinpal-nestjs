@@ -1,5 +1,4 @@
-import { ZarinPal } from 'src/core';
-import { HttpService, Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
 
 import {
