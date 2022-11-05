@@ -10,9 +10,7 @@ export class HttpClientService {
 
   public async openTransaction(options?: any): Promise<any> {
     try {
-      const requestResult = await fetch(this.transactionOpenUrl, {
-        body: options,
-      });
+      return 1;
     } catch (e) {
       throw e;
     }

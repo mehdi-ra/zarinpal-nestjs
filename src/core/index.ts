@@ -1,2 +1,2 @@
-export * from './zarinpal.module';
+export * from './module/zarinpal.module';
 export * from './constants';
