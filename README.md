@@ -1,18 +1,30 @@
 # Zarinpal Adaptor for `NestJs`.
+
 Use zarinpal payment features as easy as blink on Nestjs framework.
 Do not use this package for your Business packages due to this package is under development and it's not tested properly but stay `tunned` because we will release stable version in this weekend.
 
 ## Goals
+
 - Easy API.
 - Support of simple transactions `(progressing)`.
 - Very specific TypeOfError and error handling `(progressing)`.
 - Support of Complex and multi level implementations transactions.
 
-## How to use: (samples are fake and used as an abstraction)
+## How to use:
+
+The process is very simple and includes:
+
+- Open transaction (on Zarinpal server) and get result.
+- Redirect user to generated URL.
+- Verify transaction. If not Zarinpal will return the price to user.
+
 ---
+
 ### installation
-Install is very simple 
+
+Install is very simple
 Before anything you should get and install package from `npm`:
+
 ```
 yarn add zarinpal-nestjs
 // Or
@@ -20,6 +32,7 @@ npm install --save zarinpal-nestjs
 ```
 
 ### Module registration
+
 After successful installation you need to register zarinpal-nestjs module in your NestJs application:
 
 ```
@@ -29,9 +42,11 @@ After successful installation you need to register zarinpal-nestjs module in you
   ]
 }
 ```
+
 ---
 
 ### Inject service | Define callback endpoint
+
 Now it's time to define your callback endpoint to verify transaction after user completes it's transaction.
 
 ```
