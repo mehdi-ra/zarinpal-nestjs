@@ -69,8 +69,8 @@ export class ZarinpalService {
 
   // ------------------------------------------------------- Private methods|
 
-  private generateStartPayUrl(result: ZarinpalRequestResult): string {
-    return this.startUrl.replace(':Authority', result.data.authority);
+  private generateStartPayUrl(result: ZarinpalRequestResult['data']): string {
+    return this.startUrl.replace(':Authority', result.authority);
   }
 
   /**

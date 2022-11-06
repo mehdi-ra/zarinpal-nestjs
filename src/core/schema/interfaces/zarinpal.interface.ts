@@ -14,18 +14,24 @@ export interface ZarinpalOpenTransactionOptions {
   metadata?: ZarinpalOpenRequestMetadata;
 }
 
-export interface ZarinpalRequestResult {
+export interface ZarinpalResultErrors {
+  errors?: {
+    code: number;
+    message: string;
+    validators?: [{ [key: string]: string }];
+  };
+}
+export interface ZarinpalRequestResult extends ZarinpalResultErrors {
   data: {
     code: number;
     message: string;
     authority: string;
     fee_type: 'Merchant';
     fee: number;
-    errors?: unknown[];
   };
 }
 
-export interface ZarinpalVerifyResult {
+export interface ZarinpalVerifyResult extends ZarinpalResultErrors {
   data: {
     code: number;
     message: string;

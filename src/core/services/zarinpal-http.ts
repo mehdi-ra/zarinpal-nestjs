@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { ZarinpalError } from 'src/utilities';
 import { ZarinpalProvidersKey } from '../constants';
 
 import {
@@ -30,15 +31,23 @@ export class ZarinpalAxiosClientService {
    */
   public async openTransaction(
     options: ZarinpalOpenTransactionOptions,
-  ): Promise<ZarinpalRequestResult> {
+  ): Promise<ZarinpalRequestResult['data']> {
     try {
       const request = await this.sendRequest<ZarinpalRequestResult>(
         this.transactionOpenUrl,
         options,
       );
 
+      if (request.errors) {
+        throw new ZarinpalError(request.errors.code);
+      }
+
       return request.data;
     } catch (e) {
+      if (e && 'errors' in e) {
+        console.log(e);
+      }
+
       throw e;
     }
   }
@@ -51,12 +60,16 @@ export class ZarinpalAxiosClientService {
    */
   public async verifyTransaction(
     options: ZarinpalVerifyTransactionOptions,
-  ): Promise<ZarinpalVerifyResult> {
+  ): Promise<ZarinpalVerifyResult['data']> {
     try {
       const request = await this.sendRequest<ZarinpalVerifyResult>(
         this.verifyUrl,
         options,
       );
+
+      if (request.errors) {
+        throw new ZarinpalError(request.errors.code);
+      }
 
       return request.data;
     } catch (e) {
@@ -89,7 +102,7 @@ export class ZarinpalAxiosClientService {
   /**
    * Send post request to zarinpal API'S
    */
-  private async sendRequest<R>(url: string, data: unknown): Promise<any> {
+  private async sendRequest<R>(url: string, data: unknown): Promise<R> {
     try {
       const response = await this.fetch(url, {
         method: 'post',
