@@ -1,6 +1,6 @@
 {
   "name": "zarinpal-nestjs",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "Zarinpal NestJs Adaptor for an easy use",
   "author": "Mehdi Rahimi",
   "license": "MIT",
@@ -94,6 +94,6 @@
     }
   },
   "_moduleAliases": {
-    "src": "./dist"
+    "src": "dist"
   }
 }
