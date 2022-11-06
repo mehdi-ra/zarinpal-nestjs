@@ -7,7 +7,6 @@ import {
   ZarinpalVerifyTransactionOptions,
   ZarinpalRequestResult,
   ZarinpalVerifyResult,
-  ZarinpalResultErrors,
   fetchType,
 } from '../schema/interfaces';
 
@@ -39,7 +38,7 @@ export class ZarinpalAxiosClientService {
         options,
       );
 
-      if (request.errors) {
+      if (request.errors && request.errors.code < 0) {
         throw new ZarinpalError(request.errors.code);
       }
 
