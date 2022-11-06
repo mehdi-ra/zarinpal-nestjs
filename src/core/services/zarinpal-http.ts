@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ZarinpalError } from 'src/utilities';
+import { ZarinpalError } from '../../utilities';
 import { ZarinpalProvidersKey } from '../constants';
 
 import {
@@ -7,6 +7,7 @@ import {
   ZarinpalVerifyTransactionOptions,
   ZarinpalRequestResult,
   ZarinpalVerifyResult,
+  ZarinpalResultErrors,
   fetchType,
 } from '../schema/interfaces';
 

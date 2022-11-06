@@ -13,7 +13,6 @@ export interface ZarinpalOpenTransactionOptions {
   callback_url?: string;
   metadata?: ZarinpalOpenRequestMetadata;
 }
-
 export interface ZarinpalResultErrors {
   errors?: {
     code: number;
