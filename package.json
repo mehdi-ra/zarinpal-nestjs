@@ -1,6 +1,6 @@
 {
   "name": "zarinpal-nestjs",
-  "version": "0.0.107",
+  "version": "0.0.108",
   "description": "Zarinpal NestJs Adaptor for an easy use",
   "author": "Mehdi Rahimi",
   "license": "MIT",
@@ -42,7 +42,7 @@
     "@nestjs/class-validator": "^0.13.4",
     "axios": "^1.1.3",
     "lodash": "^4.17.21",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^2.6.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.7"
   },
