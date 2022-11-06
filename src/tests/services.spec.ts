@@ -1,13 +1,14 @@
 import { Test } from '@nestjs/testing';
 import { fakeModuleOptions } from './mock/module-options';
-import { HttpClientService } from '../core/services/http-client.service';
 import ModuleImportsFactory from 'src/core/module/imports';
 import ModuleProvidersFactory from 'src/core/module/providers';
 
 import { ZarinpalProvidersKey } from 'src/core';
+import { ZarinpalService } from 'src/core/services/zarinpal.service';
+import { mockAxiosFactory } from './mock/axios';
 
-describe('HttpClientService', () => {
-  let service!: HttpClientService;
+describe('ZarinpalService', () => {
+  let service!: ZarinpalService;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -16,18 +17,12 @@ describe('HttpClientService', () => {
     })
       .useMocker(token => {
         if (token === ZarinpalProvidersKey.AXIOS_TOKEN) {
-          return {
-            post: async () => {
-              return {
-                data: 1,
-              };
-            },
-          };
+          return mockAxiosFactory();
         }
       })
       .compile();
 
-    service = moduleRef.get(HttpClientService);
+    service = moduleRef.get(ZarinpalService);
   });
 
   test('Sending request to update', async () => {
@@ -37,6 +32,6 @@ describe('HttpClientService', () => {
       callback_url: 'https://fileniko.com',
       description: 'Hello everyone',
     });
-    expect(result.data).toBe(1);
+    expect(result).toBe('https://www.zarinpal.com/pg/StartPay/monaliza');
   });
 });

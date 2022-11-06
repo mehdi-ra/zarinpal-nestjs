@@ -25,11 +25,10 @@ export class HttpClientService {
         ZarinpalRequestResult
       >(this.transactionOpenUrl, options);
 
-      request.data;
-
-      return (await this.Axios.post(this.transactionOpenUrl, options)).data
-        .data;
+      return request.data;
     } catch (e) {
+      // Just throw the error without checking or anything.
+      // We have error handing on other forms.
       throw e;
     }
   }

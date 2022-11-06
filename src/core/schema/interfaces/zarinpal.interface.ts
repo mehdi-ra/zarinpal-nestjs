@@ -10,7 +10,7 @@ export interface ZarinpalOpenTransactionOptions {
   merchant_id: string;
   amount: number;
   description?: string;
-  callback_url: string;
+  callback_url?: string;
   metadata?: ZarinpalOpenRequestMetadata;
 }
 

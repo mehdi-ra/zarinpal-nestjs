@@ -1,6 +1,11 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
 
+/**
+ * This class mostly used as Error handler
+ * Do not implement any complex functionality here!
+ */
+
 import {
   ZarinpalRequestResult,
   ZarinpalOpenTransactionOptions,
@@ -11,7 +16,7 @@ import { HttpClientService } from './http-client.service';
 
 @Injectable()
 export class ZarinpalService {
-  // -----------------------------------Constructor|
+  // ----------------------------------------------------------Constructor|
   constructor(
     @Inject(ZarinpalProvidersKey.CALLBACK_URL)
     private readonly callbackUrl: string,
@@ -26,7 +31,7 @@ export class ZarinpalService {
   ) {}
 
   /**
-   * Open transaction on server and return databse
+   * Open transaction on database after you pass data
    * @param {ZarinpalOpenTransactionOptions} options
    * @return {string} Redirect url
    */
@@ -34,8 +39,9 @@ export class ZarinpalService {
     options: ZarinpalOpenTransactionOptions,
   ): Promise<string> {
     try {
-      // Setting callback_url
-      options.callback_url = this.callbackUrl;
+      if (!options.callback_url) {
+        options.callback_url = this.callbackUrl;
+      }
 
       const result = await this.httpService.openTransaction(options);
       return this.generateStartPayUrl(result);
@@ -60,10 +66,10 @@ export class ZarinpalService {
     }
   }
 
-  // ================================ Private methods|
+  // ------------------------------------------------------- Private methods|
 
-  private generateStartPayUrl(data: ZarinpalRequestResult): string {
-    return this.startUrl.replace(':Authority', data.authority.toString());
+  private generateStartPayUrl(result: ZarinpalRequestResult): string {
+    return this.startUrl.replace(':Authority', result.data.authority);
   }
 
   /**
