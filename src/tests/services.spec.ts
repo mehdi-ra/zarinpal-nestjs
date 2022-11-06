@@ -32,7 +32,10 @@ describe('HttpClientService', () => {
 
   test('Sending request to update', async () => {
     const result = await service.openTransaction({
-      options: fakeModuleOptions,
+      amount: 1000,
+      merchant_id: '1344b5d4-0048-11e8-94db-005056a205be',
+      callback_url: 'https://fileniko.com',
+      description: 'Hello everyone',
     });
     expect(result.data).toBe(1);
   });

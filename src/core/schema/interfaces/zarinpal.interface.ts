@@ -9,7 +9,7 @@ import { ZarinPal } from 'src/core';
 export interface ZarinpalOpenTransactionOptions {
   merchant_id: string;
   amount: number;
-  description: string;
+  description?: string;
   callback_url: string;
   metadata?: ZarinpalOpenRequestMetadata;
 }
