@@ -1,10 +1,10 @@
 import { Test } from '@nestjs/testing';
 import { fakeModuleOptions } from './mock/module-options';
-import ModuleImportsFactory from 'src/core/module/imports';
-import ModuleProvidersFactory from 'src/core/module/providers';
+import ModuleImportsFactory from '../core/module/imports';
+import ModuleProvidersFactory from '../core/module/providers';
 
-import { ZarinpalProvidersKey } from 'src/core';
-import { ZarinpalService } from 'src/core/services/zarinpal.service';
+import { ZarinpalProvidersKey } from '../core';
+import { ZarinpalService } from '../core/services/zarinpal.service';
 
 describe('ZarinpalService', () => {
   let service!: ZarinpalService;

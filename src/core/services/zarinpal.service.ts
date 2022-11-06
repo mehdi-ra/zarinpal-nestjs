@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
+import { ZarinpalProvidersKey } from '../../core/constants/providers.const';
 
 /**
  * This class mostly used as Error handler
@@ -10,9 +10,10 @@ import {
   ZarinpalRequestResult,
   ZarinpalOpenTransactionOptions,
   ZarinpalVerifyTransactionOptions,
-} from 'src/core/schema/interfaces/zarinpal.interface';
-import { ZarinpalError } from 'src/utilities';
-import { HttpClientService } from './http-client.service';
+} from '../../core/schema/interfaces/zarinpal.interface';
+
+import { ZarinpalError } from '../../utilities';
+import { ZarinpalAxiosClientService } from './zarinpal-http';
 
 @Injectable()
 export class ZarinpalService {
@@ -27,7 +28,7 @@ export class ZarinpalService {
     @Inject(ZarinpalProvidersKey.TRANSACTION_START_URL)
     private readonly startUrl: string,
 
-    private readonly httpService: HttpClientService,
+    private readonly httpService: ZarinpalAxiosClientService,
   ) {}
 
   /**

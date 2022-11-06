@@ -1,21 +1,19 @@
-import { Logger } from '@nestjs/common';
-import { generateUrl } from 'src/utilities/factories/url-factory';
+import { Logger, Provider } from '@nestjs/common';
+import { generateUrl } from '../../utilities/factories/url-factory';
 import { ZarinpalProvidersKey } from '../constants';
 import { ZarinpalModuleOptions } from '../schema/interfaces';
-import { HttpClientService } from '../services/http-client.service';
-import { ZarinpalService } from '../services/zarinpal.service';
 
-import axios from 'axios';
+// import axios from 'axios';
+import fetch from 'node-fetch';
 
-export default (function(options: ZarinpalModuleOptions) {
+export default (function(options: ZarinpalModuleOptions): Provider[] {
   return [
-    ZarinpalService,
-    HttpClientService,
-
     {
-      provide: ZarinpalProvidersKey.AXIOS_TOKEN,
-      useValue: axios,
+      provide: ZarinpalProvidersKey.HTTP_HELPER,
+      useValue: fetch,
     },
+
+    { provide: ZarinpalProvidersKey.LOGGER, useValue: new Logger('Zarinpal') },
 
     {
       provide: ZarinpalProvidersKey.CALLBACK_URL,
@@ -25,11 +23,6 @@ export default (function(options: ZarinpalModuleOptions) {
     {
       provide: ZarinpalProvidersKey.MERCHANT_ID,
       useValue: options.merchantID,
-    },
-
-    {
-      provide: ZarinpalProvidersKey.LOGGER,
-      useValue: new Logger('Zarinpal-Payment'),
     },
 
     {

@@ -1,4 +1,4 @@
-import { ZarinpalErrorCode, ZarinpalURLS } from 'src/core/schema/interfaces';
+import { ZarinpalErrorCode, ZarinpalURLS } from '../../core/schema/interfaces';
 
 export namespace ZarinPal {
   export const urls: ZarinpalURLS = {

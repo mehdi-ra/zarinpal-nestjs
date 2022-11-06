@@ -6,11 +6,11 @@ import {
   ZarinpalVerifyTransactionOptions,
   ZarinpalRequestResult,
   ZarinpalVerifyResult,
+  fetchType,
 } from '../schema/interfaces';
-import axios, { AxiosResponse } from 'axios';
 
 @Injectable()
-export class HttpClientService {
+export class ZarinpalAxiosClientService {
   constructor(
     @Inject(ZarinpalProvidersKey.TRANSACTION_OPEN_URL)
     private readonly transactionOpenUrl: string,
@@ -18,8 +18,8 @@ export class HttpClientService {
     @Inject(ZarinpalProvidersKey.TRANSACTION_VERIFY_URL)
     private readonly verifyUrl: string,
 
-    @Inject(ZarinpalProvidersKey.AXIOS_TOKEN)
-    private readonly Axios: typeof axios,
+    @Inject(ZarinpalProvidersKey.HTTP_HELPER)
+    private readonly fetch: fetchType,
   ) {}
 
   /**
@@ -89,10 +89,12 @@ export class HttpClientService {
   /**
    * Send post request to zarinpal API'S
    */
-  private async sendRequest<R>(
-    url: string,
-    data: unknown,
-  ): Promise<AxiosResponse<R, any>> {
-    return this.Axios.post(url, data);
+  private async sendRequest<R>(url: string, data: unknown): Promise<any> {
+    const response = await this.fetch(url, {
+      method: 'post',
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
   }
 }

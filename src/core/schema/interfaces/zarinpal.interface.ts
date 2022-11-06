@@ -1,4 +1,4 @@
-import { ZarinPal } from 'src/core';
+import fetch from 'node-fetch';
 
 /**
  * Request option when you are sending request
@@ -63,3 +63,5 @@ export interface ZarinpalURLS {
   verifyTransaction: ZarinpalURL;
   startPay: ZarinpalURL;
 }
+
+export type fetchType = typeof fetch;

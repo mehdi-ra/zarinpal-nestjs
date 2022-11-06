@@ -1,4 +1,4 @@
-import { ZarinpalModuleOptions } from 'src/core/schema/interfaces';
+import { ZarinpalModuleOptions } from '../../core/schema/interfaces';
 
 export const fakeModuleOptions: ZarinpalModuleOptions = {
   callBackUrl: 'https://google.com',

@@ -1,5 +1,5 @@
-import { ZarinPal } from 'src/core';
-import { ZarinpalURLS } from 'src/core/schema/interfaces';
+import { ZarinPal } from '../../core';
+import { ZarinpalURLS } from '../../core/schema/interfaces';
 
 export function generateUrl(
   urlName: keyof ZarinpalURLS,
