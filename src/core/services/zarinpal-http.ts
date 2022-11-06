@@ -44,10 +44,6 @@ export class ZarinpalAxiosClientService {
 
       return request.data;
     } catch (e) {
-      if (e && 'errors' in e) {
-        console.log(e);
-      }
-
       throw e;
     }
   }

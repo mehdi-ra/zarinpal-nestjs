@@ -14,7 +14,7 @@ export class ZarinpalError extends Error {
    * Logger that every log in this class should be
    * outputted using this object.
    */
-  protected logger = new Logger('Zarinpal Error');
+  protected logger = new Logger('Zarinpal');
 
   constructor(protected code: number) {
     super();
