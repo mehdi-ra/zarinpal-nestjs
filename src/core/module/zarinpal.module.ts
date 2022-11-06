@@ -7,27 +7,15 @@ import ModuleImportFactory from './imports';
 import { ZarinpalAxiosClientService, ZarinpalService } from '../services';
 import { ZarinpalProvidersKey } from '../constants';
 
-import axios, { Axios } from 'axios';
-
 @Global()
-@Module({
-  providers: [
-    ZarinpalAxiosClientService,
-    ZarinpalService,
-
-    {
-      provide: ZarinpalProvidersKey.LOGGER,
-      useValue: new Logger('Zarinpal-Payment'),
-    },
-  ],
-  exports: [ZarinpalService, ZarinpalAxiosClientService],
-})
+@Module({})
 export class ZarinpalModule {
   static register(options: ZarinpalModuleOptions): DynamicModule {
     return {
       module: ZarinpalModule,
       imports: ModuleImportFactory(),
       providers: ModuleProviderFactory(options),
+      exports: [ZarinpalService, ZarinpalAxiosClientService],
       global: true,
     };
   }

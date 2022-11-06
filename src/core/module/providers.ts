@@ -5,9 +5,18 @@ import { ZarinpalModuleOptions } from '../schema/interfaces';
 
 // import axios from 'axios';
 import fetch from 'node-fetch';
+import { ZarinpalAxiosClientService, ZarinpalService } from '../services';
 
 export default (function(options: ZarinpalModuleOptions): Provider[] {
   return [
+    ZarinpalAxiosClientService,
+    ZarinpalService,
+
+    {
+      provide: ZarinpalProvidersKey.LOGGER,
+      useValue: new Logger('Zarinpal-Payment'),
+    },
+
     {
       provide: ZarinpalProvidersKey.HTTP_HELPER,
       useValue: fetch,

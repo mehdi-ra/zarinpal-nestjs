@@ -90,11 +90,15 @@ export class ZarinpalAxiosClientService {
    * Send post request to zarinpal API'S
    */
   private async sendRequest<R>(url: string, data: unknown): Promise<any> {
-    const response = await this.fetch(url, {
-      method: 'post',
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await this.fetch(url, {
+        method: 'post',
+        body: JSON.stringify(data),
+      });
 
-    const result = await response.json();
+      return await response.json();
+    } catch (e) {
+      throw e;
+    }
   }
 }
