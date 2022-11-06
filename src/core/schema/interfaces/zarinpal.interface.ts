@@ -15,12 +15,14 @@ export interface ZarinpalOpenTransactionOptions {
 }
 
 export interface ZarinpalRequestResult {
-  code: number;
-  message: string;
-  authority: string;
-  fee_type: 'Merchant';
-  fee: number;
-  errors?: unknown[];
+  data: {
+    code: number;
+    message: string;
+    authority: string;
+    fee_type: 'Merchant';
+    fee: number;
+    errors?: unknown[];
+  };
 }
 
 export interface ZarinpalVerifyResult {

@@ -1,7 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ZarinpalProvidersKey } from '../constants';
 
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import {
+  ZarinpalOpenTransactionOptions,
+  ZarinpalRequestResult,
+} from '../schema/interfaces';
 @Injectable()
 export class HttpClientService {
   constructor(
@@ -12,10 +16,19 @@ export class HttpClientService {
     private readonly Axios: typeof axios,
   ) {}
 
-  public async openTransaction(options?: any): Promise<any> {
+  public async openTransaction(
+    options: ZarinpalOpenTransactionOptions,
+  ): Promise<ZarinpalRequestResult> {
     try {
-      console.log(await this.Axios.post(''));
-      return { data: 1 };
+      const request = await this.sendRequest<
+        ZarinpalOpenTransactionOptions,
+        ZarinpalRequestResult
+      >(this.transactionOpenUrl, options);
+
+      request.data;
+
+      return (await this.Axios.post(this.transactionOpenUrl, options)).data
+        .data;
     } catch (e) {
       throw e;
     }
@@ -43,5 +56,15 @@ export class HttpClientService {
     } catch (e) {
       throw new Error('Error parsing JSON !');
     }
+  }
+
+  /**
+   * Send post request to zarinpal API'S
+   */
+  private async sendRequest<T, R>(
+    url: string,
+    data: T,
+  ): Promise<AxiosResponse<R, any>> {
+    return this.Axios.post(url, data);
   }
 }
