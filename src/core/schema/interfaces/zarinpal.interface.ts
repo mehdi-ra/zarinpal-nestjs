@@ -26,30 +26,27 @@ export interface ZarinpalRequestResult {
 }
 
 export interface ZarinpalVerifyResult {
-  code: number;
-  message: string;
-
-  // SHA256 hash
-  card_hash: string;
-
-  // Masked card number like: '502229******5995'
-  card_pan: string;
-
-  ref_id: number;
-  fee_type: string;
-  fee: number;
+  data: {
+    code: number;
+    message: string;
+    card_hash: string;
+    card_pan: string;
+    ref_id: number;
+    fee_type: string;
+    fee: number;
+  };
 }
 
 export interface ZarinpalOpenRequestMetadata {
-  mobile?: string;
   email?: string;
+  mobile?: string;
   card_pan?: string;
 }
 
 export interface ZarinpalVerifyTransactionOptions {
-  MerchantID: string;
-  Authority: string;
-  Amount: number;
+  merchant_id: string;
+  authority: string;
+  amount: number;
 }
 
 /**

@@ -1,4 +1,4 @@
-export function mockAxiosFactory() {
+export function mkAxios() {
   return {
     post: async () => {
       return {

@@ -5,7 +5,6 @@ import ModuleProvidersFactory from 'src/core/module/providers';
 
 import { ZarinpalProvidersKey } from 'src/core';
 import { ZarinpalService } from 'src/core/services/zarinpal.service';
-import { mockAxiosFactory } from './mock/axios';
 
 describe('ZarinpalService', () => {
   let service!: ZarinpalService;
@@ -17,7 +16,22 @@ describe('ZarinpalService', () => {
     })
       .useMocker(token => {
         if (token === ZarinpalProvidersKey.AXIOS_TOKEN) {
-          return mockAxiosFactory();
+          return {
+            post: async () => {
+              return {
+                data: {
+                  data: {
+                    code: 100,
+                    message: 'Hello to you',
+                    authority: 'monaliza',
+                    card_hash: 'cardhashexample',
+                    card_pan: '9943453453453',
+                    ref_id: 400,
+                  },
+                },
+              };
+            },
+          };
         }
       })
       .compile();
@@ -25,7 +39,7 @@ describe('ZarinpalService', () => {
     service = moduleRef.get(ZarinpalService);
   });
 
-  test('Sending request to update', async () => {
+  test('Generate StartPay url', async () => {
     const result = await service.openTransaction({
       amount: 1000,
       merchant_id: '1344b5d4-0048-11e8-94db-005056a205be',
@@ -33,5 +47,13 @@ describe('ZarinpalService', () => {
       description: 'Hello everyone',
     });
     expect(result).toBe('https://www.zarinpal.com/pg/StartPay/monaliza');
+  });
+
+  test('Verify result', async () => {
+    const verifyResult = await service.verifyRequest({
+      amount: 1000,
+      authority: 'monaliza',
+      merchant_id: '1344b5d4-0048-11e8-94db-005056a205bej',
+    });
   });
 });
