@@ -1,6 +1,6 @@
 {
   "name": "zarinpal-nestjs",
-  "version": "0.0.104",
+  "version": "0.0.105",
   "description": "Zarinpal NestJs Adaptor for an easy use",
   "author": "Mehdi Rahimi",
   "license": "MIT",
@@ -87,10 +87,7 @@
       "node_modules",
       "src",
       "./"
-    ],
-    "moduleNameMapper": {
-      "axios": "axios/dist/node/axios.cjs"
-    }
+    ]
   },
   "_moduleAliases": {
     "src": "dist"
