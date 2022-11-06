@@ -1,11 +1,11 @@
 {
   "name": "zarinpal-nestjs",
-  "version": "0.0.12",
+  "version": "0.0.21",
   "description": "Zarinpal NestJs Adaptor for an easy use",
   "author": "Mehdi Rahimi",
   "license": "MIT",
   "readmeFilename": "README.md",
-  "main": "dist/test.js",
+  "main": "index.js",
   "files": [
     "dist/**/*",
     "*.md"
@@ -92,5 +92,4 @@
       "axios": "axios/dist/node/axios.cjs"
     }
   }
-
 }
