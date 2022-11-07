@@ -3,15 +3,13 @@
 Use zarinpal payment features as easy as blink on Nestjs framework.
 Do not use this package for your Business packages due to this package is under development and it's not tested properly but stay `tunned` because we will release stable version in this weekend.
 
-## Goals
-
-- Easy API.
-- Support of simple transactions `(progressing)`.
-- Very specific TypeOfError and error handling `(progressing)`.
-- Support of Complex and multi level implementations transactions.
+# Features:
+- Easy to use.
+- Light and fast.
+- Any dependency to other zarinpal packages.
+- Specific error type (ZarinpalError).
 
 ## How to use:
-
 The process is very simple and includes:
 
 - Open transaction (on Zarinpal server) and get result.
@@ -21,7 +19,6 @@ The process is very simple and includes:
 ---
 
 ### installation
-
 Install is very simple
 Before anything you should get and install package from `npm`:
 
@@ -32,7 +29,6 @@ npm install --save zarinpal-nestjs
 ```
 
 ### Module registration
-
 After successful installation you need to register zarinpal-nestjs module in your NestJs application:
 
 ```
