@@ -67,22 +67,33 @@ import {
 
 // Inside controller
 
-@Controller()
+@Controller('transaction')
 export class AppController {
   constructor(
     private readonly zarinpalService: ZarinpalService,
     private transactionService: TransactionService,
   ) {}
 
-  @Get()
-  async openTransaction() {
+  /**
+  * This endpoint opens transaction and generates
+  * start pay url and returns it. You need to redirect
+  * user to this url. after user done the payment process
+  * i will be redirected to url you registered on your Main module.
+   */
+  @Get('open')
+  async openTransaction(): Promise<string> {
     try {
-      return await this.zarinpalService.openTransaction({
+      const transactionResult = await this.zarinpalService.openTransaction({
         amount: 1000,
         description: 'Buying a car (example)',
       });
 
     // In real word, you need to store the result
+    // Generate start pay url
+
+    return this.zarinpalService.generateStartPayUrl(transactionResult);
+
+    return startPayUrl;
 
     } catch (e) {
       if (e instanceof ZarinpalError) {
