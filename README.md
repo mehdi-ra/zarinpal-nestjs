@@ -9,6 +9,11 @@ Do not use this package for your Business packages due to this package is under 
 - Any dependency to other zarinpal packages.
 - Specific error type (ZarinpalError).
 
+## Version 1 goals
+- Better error typing.
+- Currency option.
+- Tests.
+
 ## How to use:
 The process is very simple and includes:
 
