@@ -36,11 +36,16 @@ npm install --save zarinpal-nestjs
 After successful installation you need to register zarinpal-nestjs module in your NestJs application:
 
 ```
-{
+@Module({
   imports: [
-    ZarinpalModule.forRoot(options)
-  ]
-}
+    ZarinpalModule.register({
+      callBackUrl: 'https://google.com',
+      merchantId: '32 character long merchant_id',
+    }),
+  ],
+})
+export class AppModule {}
+
 ```
 
 ---
@@ -49,7 +54,18 @@ After successful installation you need to register zarinpal-nestjs module in you
 Lets `inject` and use our package inside controller
 but you need to store income opened transaction because you need it after user is returned to verify endpoints. Store it and search it on verify method.
 
+Below code is just a sample and you can use and inject services everywhere you like.
+
 ```
+import {
+  ZarinpalError,
+  ZarinpalService,
+  ZarinpalVerifyQueryParams,
+} from 'zarinpal-nestjs';
+
+
+// Inside controller
+
 @Controller()
 export class AppController {
   constructor(
