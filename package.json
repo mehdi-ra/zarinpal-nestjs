@@ -1,6 +1,6 @@
 {
   "name": "zarinpal-nestjs",
-  "version": "0.0.113",
+  "version": "0.1.1",
   "description": "Zarinpal NestJs Adaptor for an easy use",
   "author": "Mehdi Rahimi",
   "license": "MIT",
@@ -60,6 +60,7 @@
     "@types/sax": "^1.2.4",
     "@types/superagent": "^4.1.15",
     "@types/supertest": "2.0.7",
+    "@types/validator": "^13.7.10",
     "jest": "24.7.1",
     "jest-mock": "^29.2.2",
     "prettier": "1.17.0",
