@@ -45,30 +45,53 @@ After successful installation you need to register zarinpal-nestjs module in you
 
 ---
 
-### Inject service | Define callback endpoint
-
-Now it's time to define your callback endpoint to verify transaction after user completes it's transaction.
+### Open transaction on `Zarinpal` servers.
+Lets `inject` and use our package inside controller
+but you need to store income opened transaction because you need it after user is returned to verify endpoints. Store it and search it on verify method.
 
 ```
-// Inside Controller.
+@Controller()
+export class AppController {
+  constructor(
+    private readonly zarinpalService: ZarinpalService,
+    private transactionService: TransactionService,
+  ) {}
 
-constructor(private readonly zarinpalService: ZarinpalService) {}
+  @Get()
+  async openTransaction() {
+    try {
+      return await this.zarinpalService.openTransaction({
+        amount: 1000,
+        description: 'Buying a car (example)',
+      });
 
-@Get()
-async verifyTransaction(@Body() body: ZarinpalTransactionDoneDto) {
-  try {
-    const zarinpalVerifyResult = await this.zarinpalService.verify(body);
-    this.paymentService.updateTransaction(zarinpalVerifyResult); // This is sample
+    // In real word, you need to store the result
+
+    } catch (e) {
+      if (e instanceof ZarinpalError) {
+        throw new HttpException(e.message, e.status);
+      }
+      throw e;
+    }
   }
-  catch(e: unknown) {
-    if(e && e instanceof ZarinpalError) {
-      // This error includes the code and related income message
-      // Do everything you like.
+
+  @Get('verify')
+  async verifyTransaction(@Query() queryParams: ZarinpalVerifyQueryParams) {
+    const transaction = this.transactionService.findByAuthority(
+      queryParams.Authority,
+    );
+
+    if (queryParams.Status === 'OK') {
+      return await this.zarinpalService.verifyRequest({
+        authority: queryParams.Authority,
+        amount: transaction.amount,
+      });
     }
 
     else {
-      // Unknown error
+      throw new BadRequestException('پرداخت به دست کاربرلغو شده است');
     }
   }
 }
+
 ```

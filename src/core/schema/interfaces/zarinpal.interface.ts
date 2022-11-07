@@ -7,7 +7,7 @@ import fetch from 'node-fetch';
  * servers.
  */
 export interface ZarinpalOpenTransactionOptions {
-  merchantId?: string;
+  merchant_id?: string;
   amount: number;
   description?: string;
   callback_url?: string;
@@ -49,7 +49,7 @@ export interface ZarinpalOpenRequestMetadata {
 }
 
 export interface ZarinpalVerifyTransactionOptions {
-  merchantId: string;
+  merchant_id?: string;
   authority: string;
   amount: number;
 }

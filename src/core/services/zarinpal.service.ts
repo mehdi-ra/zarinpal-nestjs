@@ -41,27 +41,21 @@ export class ZarinpalService {
    */
   public async openTransaction(
     options: ZarinpalOpenTransactionOptions,
-  ): Promise<string> {
+  ): Promise<ZarinpalRequestResult['data']> {
     try {
       if (!options.callback_url) {
         options.callback_url = this.callbackUrl;
       }
 
-      if (!options.merchantId) {
-        options.merchantId = this.merchantId;
+      if (!options.merchant_id) {
+        options.merchant_id = this.merchantId;
       }
 
-      const result = await this.httpService.openTransaction(options);
-      return this.generateStartPayUrl(result);
+      return await this.httpService.openTransaction(options);
     } catch (e) {
       throw this.errorHandler(e);
     }
   }
-
-  /**
-   * @FIXME
-   * Please fix the issue with error handling.
-   */
 
   /**
    * After you open a transaction using openTransaction,
@@ -73,6 +67,10 @@ export class ZarinpalService {
    */
   public async verifyRequest(verifyOptions: ZarinpalVerifyTransactionOptions) {
     try {
+      if (!verifyOptions.merchant_id) {
+        verifyOptions.merchant_id = verifyOptions.merchant_id;
+      }
+
       return await this.httpService.verifyTransaction(verifyOptions);
     } catch (e) {
       throw this.errorHandler(e);
@@ -81,7 +79,12 @@ export class ZarinpalService {
 
   // ------------------------------------------------------- Private methods|
 
-  private generateStartPayUrl(result: ZarinpalRequestResult['data']): string {
+  /**
+   * Generate url using Zarinpal Request Result
+   * @param {ZarinpalRequestResult['data']} result
+   * @returns
+   */
+  public generateStartPayUrl(result: ZarinpalRequestResult['data']): string {
     return this.startUrl.replace(':Authority', result.authority);
   }
 
