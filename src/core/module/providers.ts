@@ -31,7 +31,7 @@ export default (function(options: ZarinpalModuleOptions): Provider[] {
 
     {
       provide: ZarinpalProvidersKey.MERCHANT_ID,
-      useValue: options.merchantID,
+      useValue: options.merchantId,
     },
 
     {

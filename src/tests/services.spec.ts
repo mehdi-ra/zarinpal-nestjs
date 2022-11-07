@@ -42,7 +42,7 @@ describe('ZarinpalService', () => {
   test('Generate StartPay url', async () => {
     const result = await service.openTransaction({
       amount: 1000,
-      merchant_id: '1344b5d4-0048-11e8-94db-005056a205be',
+      merchantId: '1344b5d4-0048-11e8-94db-005056a205be',
       callback_url: 'https://fileniko.com',
       description: 'Hello everyone',
     });
@@ -53,7 +53,7 @@ describe('ZarinpalService', () => {
     const verifyResult = await service.verifyRequest({
       amount: 1000,
       authority: 'monaliza',
-      merchant_id: '1344b5d4-0048-11e8-94db-005056a205bej',
+      merchantId: '1344b5d4-0048-11e8-94db-005056a205bej',
     });
   });
 });

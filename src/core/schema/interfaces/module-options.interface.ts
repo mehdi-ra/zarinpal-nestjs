@@ -1,6 +1,6 @@
 export interface ZarinpalModuleOptions {
   callBackUrl: string;
   clientName: string;
-  merchantID: number;
+  merchantId: string;
   sandboxMode?: boolean;
 }

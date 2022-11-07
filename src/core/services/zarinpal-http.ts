@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ZarinpalError } from '../../utilities';
 import { ZarinpalProvidersKey } from '../constants';
+import { Headers } from 'node-fetch';
 
 import {
   ZarinpalOpenTransactionOptions,
@@ -95,6 +96,13 @@ export class ZarinpalAxiosClientService {
     }
   }
 
+  private getHeaders(): Headers {
+    return new Headers({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+  }
+
   /**
    * Send post request to zarinpal API'S
    */
@@ -103,6 +111,7 @@ export class ZarinpalAxiosClientService {
       const response = await this.fetch(url, {
         method: 'post',
         body: JSON.stringify(data),
+        headers: this.getHeaders(),
       });
 
       return await response.json();

@@ -22,6 +22,9 @@ export class ZarinpalService {
     @Inject(ZarinpalProvidersKey.CALLBACK_URL)
     private readonly callbackUrl: string,
 
+    @Inject(ZarinpalProvidersKey.MERCHANT_ID)
+    private readonly merchantId: string,
+
     @Inject(ZarinpalProvidersKey.LOGGER)
     private readonly logger: Logger,
 
@@ -44,12 +47,21 @@ export class ZarinpalService {
         options.callback_url = this.callbackUrl;
       }
 
+      if (!options.merchantId) {
+        options.merchantId = this.merchantId;
+      }
+
       const result = await this.httpService.openTransaction(options);
       return this.generateStartPayUrl(result);
     } catch (e) {
       throw this.errorHandler(e);
     }
   }
+
+  /**
+   * @FIXME
+   * Please fix the issue with error handling.
+   */
 
   /**
    * After you open a transaction using openTransaction,
