@@ -1,67 +1,91 @@
-import { ZarinPal } from 'src/core';
-import { SoapClientService } from './soapclient.service';
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ZarinpalProvidersKey } from 'src/core/constants/providers.const';
+import { ZarinpalProvidersKey } from '../../core/constants/providers.const';
+
+/**
+ * This class mostly used as Error handler
+ * Do not implement any complex functionality here!
+ */
 
 import {
   ZarinpalRequestResult,
   ZarinpalOpenTransactionOptions,
-} from 'src/core/schema/interfaces/zarinpal.interface';
-import { ZarinpalError } from 'src/utilities';
+  ZarinpalVerifyTransactionOptions,
+} from '../../core/schema/interfaces/zarinpal.interface';
+
+import { ZarinpalError } from '../../utilities';
+import { ZarinpalAxiosClientService } from './zarinpal-http';
 
 @Injectable()
 export class ZarinpalService {
-  // -----------------------------------Constructor|
+  // ----------------------------------------------------------Constructor|
   constructor(
     @Inject(ZarinpalProvidersKey.CALLBACK_URL)
     private readonly callbackUrl: string,
 
+    @Inject(ZarinpalProvidersKey.MERCHANT_ID)
+    private readonly merchantId: string,
+
     @Inject(ZarinpalProvidersKey.LOGGER)
     private readonly logger: Logger,
 
-    private soapService: SoapClientService,
+    @Inject(ZarinpalProvidersKey.TRANSACTION_START_URL)
+    private readonly startUrl: string,
+
+    private readonly httpService: ZarinpalAxiosClientService,
   ) {}
 
   /**
-   * The purpose of this method is simple:
-   * - Send and open transaction on zarinpal
-   * - Get results, generate and return user start pay
-   *   url. You should redirect user to this project.
-   *
+   * Open transaction on database after you pass data
    * @param {ZarinpalOpenTransactionOptions} options
    * @return {string} Redirect url
    */
   public async openTransaction(
     options: ZarinpalOpenTransactionOptions,
-  ): Promise<string> {
+  ): Promise<ZarinpalRequestResult['data']> {
     try {
-      const result = await this.soapService.sendOpenTransactionRequest(options);
-      return this.generateRedirectUrl(result);
+      if (!options.callback_url) {
+        options.callback_url = this.callbackUrl;
+      }
+
+      if (!options.merchant_id) {
+        options.merchant_id = this.merchantId;
+      }
+
+      return await this.httpService.openTransaction(options);
     } catch (e) {
       throw this.errorHandler(e);
     }
   }
 
-  public async verifyRequest() {}
+  /**
+   * After you open a transaction using openTransaction,
+   * You need to get income result from your callback endpoint
+   * and use this method to confirm transaction.
+   *
+   * If not, Zarinpal will return the money back to user after
+   * a certain amount of time.
+   */
+  public async verifyRequest(verifyOptions: ZarinpalVerifyTransactionOptions) {
+    try {
+      if (!verifyOptions.merchant_id) {
+        verifyOptions.merchant_id = verifyOptions.merchant_id;
+      }
 
-  // ================================ Private methods|
+      return await this.httpService.verifyTransaction(verifyOptions);
+    } catch (e) {
+      throw this.errorHandler(e);
+    }
+  }
 
-  private parseJson() {}
-  private generateLastCode() {}
+  // ------------------------------------------------------- Private methods|
 
   /**
-   * Generate url to update
+   * Generate url using Zarinpal Request Result
+   * @param {ZarinpalRequestResult['data']} result
+   * @returns
    */
-  private generateRedirectUrl(
-    data: ZarinpalRequestResult,
-    gate?: boolean,
-  ): string {
-    return !!gate
-      ? ZarinPal.zarinpalStartPayZarinGate
-      : ZarinPal.zarinpalStartPay.replace(
-          ':Authority',
-          data.Authorities.toString(),
-        );
+  public generateStartPayUrl(result: ZarinpalRequestResult['data']): string {
+    return this.startUrl.replace(':Authority', result.authority);
   }
 
   /**

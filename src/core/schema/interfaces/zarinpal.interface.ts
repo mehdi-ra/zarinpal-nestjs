@@ -1,22 +1,4 @@
-import { ZarinPal } from 'src/core';
-
-export interface ZarinpalRequestResult {
-  /**
-   * The status code that returned after sending request.
-   */
-  Status: number;
-
-  /**
-   * Json data including Transaction extra information
-   * like Payment Gate type and time.
-   */
-  Authorities: string;
-
-  /**
-   * Url when you want to redirect user for payment process.
-   */
-  url?: string;
-}
+import fetch from 'node-fetch';
 
 /**
  * Request option when you are sending request
@@ -25,25 +7,66 @@ export interface ZarinpalRequestResult {
  * servers.
  */
 export interface ZarinpalOpenTransactionOptions {
-  MerchantID: number;
-  Amount: number;
-  Email: string;
-  Phone: string;
-  Mobile: string;
+  merchant_id?: string;
+  amount: number;
+  description?: string;
+  callback_url?: string;
+  metadata?: ZarinpalOpenRequestMetadata;
+}
+export interface ZarinpalResultErrors {
+  errors?: {
+    code: number;
+    message: string;
+    validators?: [{ [key: string]: string }];
+  };
+}
+export interface ZarinpalRequestResult extends ZarinpalResultErrors {
+  data: {
+    code: number;
+    message: string;
+    authority: string;
+    fee_type: 'Merchant';
+    fee: number;
+  };
+}
 
-  // Url for GateWay or regular ?
-  GateWay?: boolean;
-  CallbackURL?: string;
+export interface ZarinpalVerifyResult extends ZarinpalResultErrors {
+  data: {
+    code: number;
+    message: string;
+    card_hash: string;
+    card_pan: string;
+    ref_id: number;
+    fee_type: string;
+    fee: number;
+  };
+}
+
+export interface ZarinpalOpenRequestMetadata {
+  email?: string;
+  mobile?: string;
+  card_pan?: string;
 }
 
 export interface ZarinpalVerifyTransactionOptions {
-  MerchantID: string;
-  Authority: string;
-  Amount: number;
+  merchant_id?: string;
+  authority: string;
+  amount: number;
 }
 
 /**
  * Useful when you want to help user to chose
  * urls and avoid unwanted mistakes.
  */
-export type ZarinPalURL = typeof ZarinPal.urls[number];
+export interface ZarinpalURL {
+  sandbox: string;
+  default: string;
+}
+
+export interface ZarinpalURLS {
+  openTransaction: ZarinpalURL;
+  verifyTransaction: ZarinpalURL;
+  startPay: ZarinpalURL;
+}
+
+export type fetchType = typeof fetch;

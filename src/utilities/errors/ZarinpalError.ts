@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 
 import { Logger } from '@nestjs/common';
-import { ZarinPal } from 'src/core';
-import { ZarinpalErrorCode } from 'src/core/schema/interfaces';
+import { ZarinPal } from '../../core';
+import { ZarinpalErrorCode } from '../../core/schema/interfaces';
 
 export class ZarinpalError extends Error {
   /**
@@ -14,7 +14,6 @@ export class ZarinpalError extends Error {
    * Logger that every log in this class should be
    * outputted using this object.
    */
-  protected logger = new Logger('Zarinpal Error');
 
   constructor(protected code: number) {
     super();
@@ -39,13 +38,9 @@ export class ZarinpalError extends Error {
       this.message = error.message;
       this.status = error.httpStatusCode;
       this.name = error.status.toString(); // Set name of error
-
-      this.logger.error(error.message + Date.now().toString());
     } catch (e) {
       this.message = (e as unknown) as string;
       this.status = 500;
-
-      this.logger.error(e);
     }
   }
 }
