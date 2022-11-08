@@ -84,9 +84,8 @@ As you know you need to redirect the user to the payment gate, then the user can
 
 ## Verify transaction
 After user completes the payment process, will return to url you pass through Module registration and you can verify them like this:
-
 ```
-@Get()
+@Get('verify')
 async verifyTransaction(@Query() query: ZarinpalVerifyQueryParams) {
     const transaction = await this.appService.findTransactionByAuthority(
       query.Authority,
