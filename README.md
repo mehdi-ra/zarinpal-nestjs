@@ -5,13 +5,16 @@
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+
+
+
+
+# Features: 
+
 [circleci-url]: https://circleci.com/gh/nestjs/nest
-
-Use zarinpal payment features as easy as drinking water on Nestjs framework.
-This version is usable on your services without any problem.
-
-
-# Features:
+[![Documents](https://badgen.net/badge/Documents/v1/blue?icon=wiki)](https://kahroba-lang.github.io/docs/latest)
+[![Version](https://badgen.net/badge/Version/v1.0.0/orange?icon=github)](https://kahroba-lang.github.io/docs/0.1)
+[![status](https://badgen.net/badge/Status/Released/green?icon=now)](https://kahroba-lang.github.io/docs/0.1)
 - Easy to use.
 - Light and fast.
 - Any dependency to other zarinpal packages.
@@ -94,4 +97,4 @@ async verifyTransaction(@Query() query: ZarinpalVerifyQueryParams) {
     });
 }
 ```
-for more information please read [Documentation](https://github.com/me-dira/zarinpal-nestjs/wiki)
+for more information please read [Documentation](https://github.com/me-dira/zarinpal-nestjs/wiki).
