@@ -7,12 +7,14 @@ import fetch from 'node-fetch';
  * servers.
  */
 export interface ZarinpalOpenTransactionOptions {
-  merchant_id?: string;
   amount: number;
+  merchant_id?: string;
   description?: string;
   callback_url?: string;
   metadata?: ZarinpalOpenRequestMetadata;
+  currency?: ZarinpalSupportedCurrencies;
 }
+
 export interface ZarinpalResultErrors {
   errors?: {
     code: number;
@@ -20,25 +22,26 @@ export interface ZarinpalResultErrors {
     validators?: [{ [key: string]: string }];
   };
 }
+
 export interface ZarinpalRequestResult extends ZarinpalResultErrors {
   data: {
+    fee: number;
     code: number;
     message: string;
     authority: string;
     fee_type: 'Merchant';
-    fee: number;
   };
 }
 
 export interface ZarinpalVerifyResult extends ZarinpalResultErrors {
   data: {
-    code: number;
-    message: string;
-    card_hash: string;
-    card_pan: string;
-    ref_id: number;
-    fee_type: string;
     fee: number;
+    code: number;
+    ref_id: number;
+    message: string;
+    card_pan: string;
+    fee_type: string;
+    card_hash: string;
   };
 }
 
@@ -64,9 +67,10 @@ export interface ZarinpalURL {
 }
 
 export interface ZarinpalURLS {
-  openTransaction: ZarinpalURL;
   verifyTransaction: ZarinpalURL;
+  openTransaction: ZarinpalURL;
   startPay: ZarinpalURL;
 }
 
 export type fetchType = typeof fetch;
+export type ZarinpalSupportedCurrencies = 'IRR' | 'IRT';

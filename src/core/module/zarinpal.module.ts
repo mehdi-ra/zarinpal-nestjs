@@ -1,11 +1,10 @@
-import { DynamicModule, Global, Logger, Module } from '@nestjs/common';
+import { DynamicModule, Global, Module } from '@nestjs/common';
 import { ZarinpalModuleOptions } from '../../core/schema/interfaces';
 
 import ModuleProviderFactory from './providers';
 import ModuleImportFactory from './imports';
 
-import { ZarinpalAxiosClientService, ZarinpalService } from '../services';
-import { ZarinpalProvidersKey } from '../constants';
+import { ZarinpalHttpClientService, ZarinpalService } from '../services';
 
 @Global()
 @Module({})
@@ -15,7 +14,7 @@ export class ZarinpalModule {
       module: ZarinpalModule,
       imports: ModuleImportFactory(),
       providers: ModuleProviderFactory(options),
-      exports: [ZarinpalService, ZarinpalAxiosClientService],
+      exports: [ZarinpalService, ZarinpalHttpClientService],
       global: true,
     };
   }

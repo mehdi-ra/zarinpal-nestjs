@@ -1,9 +1,21 @@
 # Zarinpal Adaptor for `NestJs`.
 
-Use zarinpal payment features as easy as blink on Nestjs framework.
-Do not use this package for your Business packages due to this package is under development and it's not tested properly but stay `tunned` because we will release stable version in this weekend.
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-# Features:
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+
+
+
+
+# Features: 
+
+[circleci-url]: https://circleci.com/gh/nestjs/nest
+[![Documents](https://badgen.net/badge/Documents/v1/blue?icon=wiki)](https://github.com/me-dira/zarinpal-nestjs/wiki)
+[![Version](https://badgen.net/badge/Version/v1.0.0/orange?icon=github)](https://github.com/me-dira/zarinpal-nestjs)
+[![status](https://badgen.net/badge/Status/Released/green?icon=now)](https://github.com/me-dira/zarinpal-nestjs)
+
 - Easy to use.
 - Light and fast.
 - Any dependency to other zarinpal packages.
@@ -12,29 +24,27 @@ Do not use this package for your Business packages due to this package is under 
 ## How to use:
 The process is very simple and includes:
 
-- Open transaction (on Zarinpal server) and get result.
-- Redirect user to generated URL.
-- Verify transaction. If not Zarinpal will return the price to user.
+- Open transaction on Zarinpal.
+- Generate url using result and redirect user to startPay page.
+- User will be redirected after payment is done to verify url you specified.
 
 ---
-
 ### installation
-Install is very simple
-Before anything you should get and install package from `npm`:
+Installation is very simple and can be done using below commands:
 
 ```
 yarn add zarinpal-nestjs
-// Or
 npm install --save zarinpal-nestjs
 ```
 
-### Module registration
-After successful installation you need to register zarinpal-nestjs module in your NestJs application:
+### Register the module
+After successful installation you need to register `zarinpal-nestjs` module in your NestJs application:
 
 ```
 @Module({
   imports: [
     ZarinpalModule.register({
+      // Required options:
       callBackUrl: 'https://google.com',
       merchantId: '32 character long merchant_id',
     }),
@@ -44,69 +54,47 @@ export class AppModule {}
 
 ```
 
----
 
-### Open transaction on `Zarinpal` servers.
-Lets `inject` and use our package inside controller
-but you need to store income opened transaction because you need it after user is returned to verify endpoints. Store it and search it on verify method.
-
-Below code is just a sample and you can use and inject services everywhere you like.
+### Inject inside the class
+You can check one simple example of injecting the `service`:
 
 ```
-import {
-  ZarinpalError,
-  ZarinpalService,
-  ZarinpalVerifyQueryParams,
-} from 'zarinpal-nestjs';
-
-
-// Inside controller
-
-@Controller()
+import { ZarinpalService } from 'zarinpal-nestjs';
+@Controller('transaction')
 export class AppController {
   constructor(
     private readonly zarinpalService: ZarinpalService,
-    private transactionService: TransactionService,
   ) {}
 
-  @Get()
-  async openTransaction() {
-    try {
-      return await this.zarinpalService.openTransaction({
+```
+
+## Open transaction & Generate Start Pay URL
+As you know you need to redirect the user to the payment gate, then the user can pay the bill. After you open a transaction and get the authorization code, you can generate the URL using `transactionOpen` result like:
+```
+  async openTransaction(): Promise<string> {
+      const transactionResult = await this.zarinpalService.openTransaction({
         amount: 1000,
         description: 'Buying a car (example)',
       });
-
-    // In real word, you need to store the result
-
-    } catch (e) {
-      if (e instanceof ZarinpalError) {
-        throw new HttpException(e.message, e.status);
-      }
-      throw e;
-    }
+      
+      // https://www.zarinpal.com/pg/StartPay/A00000000000000000000000000387664294
+      return this.zarinpalService.generateUrl(transactionResult);
   }
+```
 
-  // ZarinpalVerifyQueryParams uses class-validator and one specific validator to validate 
-  // authority code.
-
-  @Get('verify')
-  async verifyTransaction(@Query() queryParams: ZarinpalVerifyQueryParams) {
-    const transaction = this.transactionService.findByAuthority(
-      queryParams.Authority,
+## Verify transaction
+After user completes the payment process, will return to url you pass through Module registration and you can verify them like this:
+```
+@Get('verify')
+async verifyTransaction(@Query() query: ZarinpalVerifyQueryParams) {
+    const transaction = await this.appService.findTransactionByAuthority(
+      query.Authority,
     );
 
-    if (queryParams.Status === 'OK') {
-      return await this.zarinpalService.verifyRequest({
-        authority: queryParams.Authority,
-        amount: transaction.amount,
-      });
-    }
-
-    else {
-      throw new BadRequestException('پرداخت به دست کاربرلغو شده است');
-    }
-  }
+    await this.zarinpalService.verifyTransaction({
+      authority: query.Authority,
+      amount: transaction.amount,
+    });
 }
-
 ```
+for more information please read [Documentation](https://github.com/me-dira/zarinpal-nestjs/wiki).

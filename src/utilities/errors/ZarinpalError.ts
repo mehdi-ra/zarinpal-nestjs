@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 
-import { Logger } from '@nestjs/common';
 import { ZarinPal } from '../../core';
 import { ZarinpalErrorCode } from '../../core/schema/interfaces';
 
@@ -8,14 +7,14 @@ export class ZarinpalError extends Error {
   /**
    * Http status code that is suitable to income request error.
    */
-  public status!: number;
+  public statusCode!: number;
 
   /**
    * Logger that every log in this class should be
    * outputted using this object.
    */
 
-  constructor(protected code: number) {
+  constructor(public code: number) {
     super();
     this.lookForError(code);
   }
@@ -36,11 +35,11 @@ export class ZarinpalError extends Error {
       }
 
       this.message = error.message;
-      this.status = error.httpStatusCode;
+      this.statusCode = error.httpStatusCode;
       this.name = error.status.toString(); // Set name of error
     } catch (e) {
       this.message = (e as unknown) as string;
-      this.status = 500;
+      this.statusCode = 500;
     }
   }
 }

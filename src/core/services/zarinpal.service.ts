@@ -1,19 +1,16 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from '../../core/constants/providers.const';
 
-/**
- * This class mostly used as Error handler
- * Do not implement any complex functionality here!
- */
-
 import {
   ZarinpalRequestResult,
   ZarinpalOpenTransactionOptions,
   ZarinpalVerifyTransactionOptions,
+  ZarinpalSupportedCurrencies,
+  ZarinpalVerifyResult,
 } from '../../core/schema/interfaces/zarinpal.interface';
 
 import { ZarinpalError } from '../../utilities';
-import { ZarinpalAxiosClientService } from './zarinpal-http';
+import { ZarinpalHttpClientService } from './zarinpal-http';
 
 @Injectable()
 export class ZarinpalService {
@@ -25,13 +22,16 @@ export class ZarinpalService {
     @Inject(ZarinpalProvidersKey.MERCHANT_ID)
     private readonly merchantId: string,
 
+    @Inject(ZarinpalProvidersKey.CURRENCY)
+    private readonly currency: ZarinpalSupportedCurrencies,
+
     @Inject(ZarinpalProvidersKey.LOGGER)
     private readonly logger: Logger,
 
     @Inject(ZarinpalProvidersKey.TRANSACTION_START_URL)
     private readonly startUrl: string,
 
-    private readonly httpService: ZarinpalAxiosClientService,
+    private readonly httpService: ZarinpalHttpClientService,
   ) {}
 
   /**
@@ -51,6 +51,10 @@ export class ZarinpalService {
         options.merchant_id = this.merchantId;
       }
 
+      if (!options.currency) {
+        options.currency = this.currency;
+      }
+
       return await this.httpService.openTransaction(options);
     } catch (e) {
       throw this.errorHandler(e);
@@ -64,14 +68,41 @@ export class ZarinpalService {
    *
    * If not, Zarinpal will return the money back to user after
    * a certain amount of time.
+   * @deprecated Will be removed in version 2
    */
-  public async verifyRequest(verifyOptions: ZarinpalVerifyTransactionOptions) {
+  public async verifyRequest(
+    verifyOptions: ZarinpalVerifyTransactionOptions,
+  ): Promise<ZarinpalVerifyResult['data']> {
     try {
       if (!verifyOptions.merchant_id) {
-        verifyOptions.merchant_id = verifyOptions.merchant_id;
+        verifyOptions.merchant_id = this.merchantId;
       }
 
       return await this.httpService.verifyTransaction(verifyOptions);
+    } catch (e) {
+      throw this.errorHandler(e);
+    }
+  }
+
+  /**
+   * After you open a transaction using openTransaction,
+   * You need to get income result from your callback endpoint
+   * and use this method to confirm transaction.
+   *
+   * If not, Zarinpal will return the money back to user after
+   * a certain amount of time.s
+   * @param {ZarinpalVerifyTransactionOptions} options
+   * @return {ZarinpalVerifyResult['data']}
+   */
+  public async verifyTransaction(
+    options: ZarinpalVerifyTransactionOptions,
+  ): Promise<ZarinpalVerifyResult['data']> {
+    try {
+      if (!options.merchant_id) {
+        options.merchant_id = this.merchantId;
+      }
+
+      return await this.httpService.verifyTransaction(options);
     } catch (e) {
       throw this.errorHandler(e);
     }
