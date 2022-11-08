@@ -10,9 +10,10 @@ Do not use this package for your Business packages due to this package is under 
 - Specific error type (ZarinpalError).
 
 ## Version 1 goals
+- Verify section tests.
 - Better error typing.
 - Currency option.
-- Tests.
+- More Tests ...
 
 ## How to use:
 The process is very simple and includes:
@@ -92,8 +93,6 @@ export class AppController {
     // Generate start pay url
 
     return this.zarinpalService.generateStartPayUrl(transactionResult);
-
-    return startPayUrl;
 
     } catch (e) {
       if (e instanceof ZarinpalError) {

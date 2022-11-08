@@ -5,11 +5,11 @@ import { ZarinpalModuleOptions } from '../schema/interfaces';
 
 // import axios from 'axios';
 import fetch from 'node-fetch';
-import { ZarinpalAxiosClientService, ZarinpalService } from '../services';
+import { ZarinpalHttpClientService, ZarinpalService } from '../services';
 
 export default (function(options: ZarinpalModuleOptions): Provider[] {
   return [
-    ZarinpalAxiosClientService,
+    ZarinpalHttpClientService,
     ZarinpalService,
 
     {

@@ -13,7 +13,7 @@ import {
 } from '../../core/schema/interfaces/zarinpal.interface';
 
 import { ZarinpalError } from '../../utilities';
-import { ZarinpalAxiosClientService } from './zarinpal-http';
+import { ZarinpalHttpClientService } from './zarinpal-http';
 
 @Injectable()
 export class ZarinpalService {
@@ -31,7 +31,7 @@ export class ZarinpalService {
     @Inject(ZarinpalProvidersKey.TRANSACTION_START_URL)
     private readonly startUrl: string,
 
-    private readonly httpService: ZarinpalAxiosClientService,
+    private readonly httpService: ZarinpalHttpClientService,
   ) {}
 
   /**

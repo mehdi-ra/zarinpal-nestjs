@@ -4,7 +4,7 @@ import { ZarinpalModuleOptions } from '../../core/schema/interfaces';
 import ModuleProviderFactory from './providers';
 import ModuleImportFactory from './imports';
 
-import { ZarinpalAxiosClientService, ZarinpalService } from '../services';
+import { ZarinpalHttpClientService, ZarinpalService } from '../services';
 import { ZarinpalProvidersKey } from '../constants';
 
 @Global()
@@ -15,7 +15,7 @@ export class ZarinpalModule {
       module: ZarinpalModule,
       imports: ModuleImportFactory(),
       providers: ModuleProviderFactory(options),
-      exports: [ZarinpalService, ZarinpalAxiosClientService],
+      exports: [ZarinpalService, ZarinpalHttpClientService],
       global: true,
     };
   }
