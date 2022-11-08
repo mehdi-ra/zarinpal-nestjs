@@ -12,7 +12,7 @@ import {
 } from '../schema/interfaces';
 
 @Injectable()
-export class ZarinpalAxiosClientService {
+export class ZarinpalHttpClientService {
   constructor(
     @Inject(ZarinpalProvidersKey.TRANSACTION_OPEN_URL)
     private readonly transactionOpenUrl: string,

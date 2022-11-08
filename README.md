@@ -1,7 +1,15 @@
 # Zarinpal Adaptor for `NestJs`.
 
-Use zarinpal payment features as easy as blink on Nestjs framework.
-Do not use this package for your Business packages due to this package is under development and it's not tested properly but stay `tunned` because we will release stable version in this weekend.
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
+
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
+
+Use zarinpal payment features as easy as drinking water on Nestjs framework.
+This version is usable on your services without any problem.
+
 
 # Features:
 - Easy to use.
@@ -9,53 +17,50 @@ Do not use this package for your Business packages due to this package is under 
 - Any dependency to other zarinpal packages.
 - Specific error type (ZarinpalError).
 
-## Version 1 goals
-- Better error typing.
-- Currency option.
-- Tests.
-
 ## How to use:
 The process is very simple and includes:
 
-- Open transaction (on Zarinpal server) and get result.
-- Redirect user to generated URL.
-- Verify transaction. If not Zarinpal will return the price to user.
+- Open transaction on Zarinpal.
+- Generate url using result and redirect user to startPay page.
+- User will be redirected after payment is done to verify url you specified.
 
 ---
 
 ### installation
-Install is very simple
-Before anything you should get and install package from `npm`:
+Installation is very simple and can be done using below commands:
 
 ```
-yarn add zarinpal-nestjs
-// Or
-npm install --save zarinpal-nestjs
+yarn add zarinpal-nestjs // Or
+npm install --save zarinpal-nestjs // Or
 ```
 
-### Module registration
+### Register the module
 After successful installation you need to register zarinpal-nestjs module in your NestJs application:
 
 ```
 @Module({
   imports: [
     ZarinpalModule.register({
+      // Required options:
       callBackUrl: 'https://google.com',
       merchantId: '32 character long merchant_id',
+
+      // Optional options:
+      currency: 'IRR', // (IRR = ریال, IRT=تومان) default is IRR
+      sandboxMode: false // default is false
     }),
   ],
 })
 export class AppModule {}
 
 ```
-
+| name | Description |
+|---   |---          |
+| callBackUrl| url
 ---
 
-### Open transaction on `Zarinpal` servers.
-Lets `inject` and use our package inside controller
-but you need to store income opened transaction because you need it after user is returned to verify endpoints. Store it and search it on verify method.
-
-Below code is just a sample and you can use and inject services everywhere you like.
+### Inject `Zarinpal Service`.
+The main functionality of the package are accessible from `ZarinpalService` importable from ZarinpalService.
 
 ```
 import {
@@ -86,14 +91,12 @@ export class AppController {
       const transactionResult = await this.zarinpalService.openTransaction({
         amount: 1000,
         description: 'Buying a car (example)',
-      });
+      }); 
 
     // In real word, you need to store the result
     // Generate start pay url
 
     return this.zarinpalService.generateStartPayUrl(transactionResult);
-
-    return startPayUrl;
 
     } catch (e) {
       if (e instanceof ZarinpalError) {

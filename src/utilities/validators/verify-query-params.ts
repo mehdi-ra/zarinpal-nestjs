@@ -3,7 +3,7 @@ import { IsRightAuthority } from '../decorators';
 
 export class ZarinpalVerifyQueryParams {
   @IsString()
-  @IsRightAuthority()
+  @IsRightAuthority({ message: 'Authority Code is not valid.' })
   Authority!: string;
 
   @IsString()

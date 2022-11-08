@@ -13,8 +13,6 @@ export function IsRightAuthority(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
-          const [relatedPropertyName] = args.constraints;
-
           return (
             typeof value === 'string' &&
             value.startsWith('A') &&
