@@ -87,6 +87,9 @@ export class AppController {
     }
   }
 
+  // ZarinpalVerifyQueryParams uses class-validator and one specific validator to validate 
+  // authority code.
+
   @Get('verify')
   async verifyTransaction(@Query() queryParams: ZarinpalVerifyQueryParams) {
     const transaction = this.transactionService.findByAuthority(
