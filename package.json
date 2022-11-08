@@ -5,6 +5,7 @@
   "author": "Mehdi Rahimi",
   "license": "MIT",
   "readmeFilename": "README.md",
+  "homepage": "https://github.com/me-dira/zarinpal-nestjs/wiki",
   "main": "./dist/index.js",
   "files": [
     "dist",

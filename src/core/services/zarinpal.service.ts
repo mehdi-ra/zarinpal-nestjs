@@ -6,6 +6,7 @@ import {
   ZarinpalOpenTransactionOptions,
   ZarinpalVerifyTransactionOptions,
   ZarinpalSupportedCurrencies,
+  ZarinpalVerifyResult,
 } from '../../core/schema/interfaces/zarinpal.interface';
 
 import { ZarinpalError } from '../../utilities';
@@ -68,10 +69,12 @@ export class ZarinpalService {
    * If not, Zarinpal will return the money back to user after
    * a certain amount of time.
    */
-  public async verifyRequest(verifyOptions: ZarinpalVerifyTransactionOptions) {
+  public async verifyRequest(
+    verifyOptions: ZarinpalVerifyTransactionOptions,
+  ): Promise<ZarinpalVerifyResult['data']> {
     try {
       if (!verifyOptions.merchant_id) {
-        verifyOptions.merchant_id = verifyOptions.merchant_id;
+        verifyOptions.merchant_id = this.merchantId;
       }
 
       return await this.httpService.verifyTransaction(verifyOptions);
