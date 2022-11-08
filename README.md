@@ -25,17 +25,16 @@ The process is very simple and includes:
 - User will be redirected after payment is done to verify url you specified.
 
 ---
-
 ### installation
 Installation is very simple and can be done using below commands:
 
 ```
-yarn add zarinpal-nestjs // Or
-npm install --save zarinpal-nestjs // Or
+yarn add zarinpal-nestjs
+npm install --save zarinpal-nestjs
 ```
 
 ### Register the module
-After successful installation you need to register zarinpal-nestjs module in your NestJs application:
+After successful installation you need to register `zarinpal-nestjs` module in your NestJs application:
 
 ```
 @Module({
@@ -44,85 +43,55 @@ After successful installation you need to register zarinpal-nestjs module in you
       // Required options:
       callBackUrl: 'https://google.com',
       merchantId: '32 character long merchant_id',
-
-      // Optional options:
-      currency: 'IRR', // (IRR = ریال, IRT=تومان) default is IRR
-      sandboxMode: false // default is false
     }),
   ],
 })
 export class AppModule {}
 
 ```
-| name | Description |
-|---   |---          |
-| callBackUrl| url
----
 
-### Inject `Zarinpal Service`.
-The main functionality of the package are accessible from `ZarinpalService` importable from ZarinpalService.
+
+### Inject inside the class
+You can check one simple example of injecting the `service`:
 
 ```
-import {
-  ZarinpalError,
-  ZarinpalService,
-  ZarinpalVerifyQueryParams,
-} from 'zarinpal-nestjs';
-
-
-// Inside controller
-
+import { ZarinpalService } from 'zarinpal-nestjs';
 @Controller('transaction')
 export class AppController {
   constructor(
     private readonly zarinpalService: ZarinpalService,
-    private transactionService: TransactionService,
   ) {}
 
-  /**
-  * This endpoint opens transaction and generates
-  * start pay url and returns it. You need to redirect
-  * user to this url. after user done the payment process
-  * i will be redirected to url you registered on your Main module.
-   */
-  @Get('open')
+```
+
+## Open transaction & Generate Start Pay URL
+As you know you need to redirect the user to the payment gate, then the user can pay the bill. After you open a transaction and get the authorization code, you can generate the URL using `transactionOpen` result like:
+```
   async openTransaction(): Promise<string> {
-    try {
       const transactionResult = await this.zarinpalService.openTransaction({
         amount: 1000,
         description: 'Buying a car (example)',
-      }); 
-
-    // In real word, you need to store the result
-    // Generate start pay url
-
-    return this.zarinpalService.generateStartPayUrl(transactionResult);
-
-    } catch (e) {
-      if (e instanceof ZarinpalError) {
-        throw new HttpException(e.message, e.status);
-      }
-      throw e;
-    }
-  }
-
-  @Get('verify')
-  async verifyTransaction(@Query() queryParams: ZarinpalVerifyQueryParams) {
-    const transaction = this.transactionService.findByAuthority(
-      queryParams.Authority,
-    );
-
-    if (queryParams.Status === 'OK') {
-      return await this.zarinpalService.verifyRequest({
-        authority: queryParams.Authority,
-        amount: transaction.amount,
       });
-    }
-
-    else {
-      throw new BadRequestException('پرداخت به دست کاربرلغو شده است');
-    }
+      
+      // https://www.zarinpal.com/pg/StartPay/A00000000000000000000000000387664294
+      return this.zarinpalService.generateUrl(transactionResult);
   }
-}
+```
+
+## Verify transaction
+After user completes the payment process, will return to url you pass through Module registration and you can verify them like this:
 
 ```
+@Get()
+async verifyTransaction(@Query() query: ZarinpalVerifyQueryParams) {
+    const transaction = await this.appService.findTransactionByAuthority(
+      query.Authority,
+    );
+
+    await this.zarinpalService.verifyTransaction({
+      authority: query.Authority,
+      amount: transaction.amount,
+    });
+}
+```
+for more information please read [Documentation](https://github.com/me-dira/zarinpal-nestjs/wiki)
