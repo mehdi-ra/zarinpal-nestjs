@@ -13,6 +13,11 @@ export default (function(options: ZarinpalModuleOptions): Provider[] {
     ZarinpalService,
 
     {
+      provide: ZarinpalProvidersKey.CURRENCY,
+      useValue: options?.currency || 'IRR',
+    },
+
+    {
       provide: ZarinpalProvidersKey.LOGGER,
       useValue: new Logger('Zarinpal-Payment'),
     },

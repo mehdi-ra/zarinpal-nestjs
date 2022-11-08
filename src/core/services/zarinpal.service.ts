@@ -1,15 +1,11 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from '../../core/constants/providers.const';
 
-/**
- * This class mostly used as Error handler
- * Do not implement any complex functionality here!
- */
-
 import {
   ZarinpalRequestResult,
   ZarinpalOpenTransactionOptions,
   ZarinpalVerifyTransactionOptions,
+  ZarinpalSupportedCurrencies,
 } from '../../core/schema/interfaces/zarinpal.interface';
 
 import { ZarinpalError } from '../../utilities';
@@ -24,6 +20,9 @@ export class ZarinpalService {
 
     @Inject(ZarinpalProvidersKey.MERCHANT_ID)
     private readonly merchantId: string,
+
+    @Inject(ZarinpalProvidersKey.CURRENCY)
+    private readonly currency: ZarinpalSupportedCurrencies,
 
     @Inject(ZarinpalProvidersKey.LOGGER)
     private readonly logger: Logger,
@@ -49,6 +48,10 @@ export class ZarinpalService {
 
       if (!options.merchant_id) {
         options.merchant_id = this.merchantId;
+      }
+
+      if (!options.currency) {
+        options.currency = this.currency;
       }
 
       return await this.httpService.openTransaction(options);

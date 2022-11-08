@@ -1,11 +1,10 @@
-import { DynamicModule, Global, Logger, Module } from '@nestjs/common';
+import { DynamicModule, Global, Module } from '@nestjs/common';
 import { ZarinpalModuleOptions } from '../../core/schema/interfaces';
 
 import ModuleProviderFactory from './providers';
 import ModuleImportFactory from './imports';
 
 import { ZarinpalHttpClientService, ZarinpalService } from '../services';
-import { ZarinpalProvidersKey } from '../constants';
 
 @Global()
 @Module({})
