@@ -68,6 +68,7 @@ export class ZarinpalService {
    *
    * If not, Zarinpal will return the money back to user after
    * a certain amount of time.
+   * @deprecated Will be removed in version 2
    */
   public async verifyRequest(
     verifyOptions: ZarinpalVerifyTransactionOptions,
@@ -78,6 +79,30 @@ export class ZarinpalService {
       }
 
       return await this.httpService.verifyTransaction(verifyOptions);
+    } catch (e) {
+      throw this.errorHandler(e);
+    }
+  }
+
+  /**
+   * After you open a transaction using openTransaction,
+   * You need to get income result from your callback endpoint
+   * and use this method to confirm transaction.
+   *
+   * If not, Zarinpal will return the money back to user after
+   * a certain amount of time.s
+   * @param {ZarinpalVerifyTransactionOptions} options
+   * @return {ZarinpalVerifyResult['data']}
+   */
+  public async verifyTransaction(
+    options: ZarinpalVerifyTransactionOptions,
+  ): Promise<ZarinpalVerifyResult['data']> {
+    try {
+      if (!options.merchant_id) {
+        options.merchant_id = this.merchantId;
+      }
+
+      return await this.httpService.verifyTransaction(options);
     } catch (e) {
       throw this.errorHandler(e);
     }
