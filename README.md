@@ -12,9 +12,10 @@
 # Features: 
 
 [circleci-url]: https://circleci.com/gh/nestjs/nest
-[![Documents](https://badgen.net/badge/Documents/v1/blue?icon=wiki)](https://kahroba-lang.github.io/docs/latest)
-[![Version](https://badgen.net/badge/Version/v1.0.0/orange?icon=github)](https://kahroba-lang.github.io/docs/0.1)
-[![status](https://badgen.net/badge/Status/Released/green?icon=now)](https://kahroba-lang.github.io/docs/0.1)
+[![Documents](https://badgen.net/badge/Documents/v1/blue?icon=wiki)](https://github.com/me-dira/zarinpal-nestjs/wiki)
+[![Version](https://badgen.net/badge/Version/v1.0.0/orange?icon=github)](https://github.com/me-dira/zarinpal-nestjs)
+[![status](https://badgen.net/badge/Status/Released/green?icon=now)](https://github.com/me-dira/zarinpal-nestjs)
+
 - Easy to use.
 - Light and fast.
 - Any dependency to other zarinpal packages.
