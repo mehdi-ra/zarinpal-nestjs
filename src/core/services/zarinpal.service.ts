@@ -56,6 +56,10 @@ export class ZarinpalService {
         options.currency = this.currency;
       }
 
+      if (!options.description) {
+        throw new TypeError('Description is required.');
+      }
+
       return await this.httpService.openTransaction(options);
     } catch (e) {
       throw this.errorHandler(e);
@@ -115,7 +119,7 @@ export class ZarinpalService {
    * Generate url using Zarinpal Request Result
    * @param {ZarinpalOpenTransactionResultData} value
    * @param {string} value
-   * @return { string }
+   * @return { string } Url something like
    * @TODO: Generate using authority code alone
    */
   public generateStartPayUrl(

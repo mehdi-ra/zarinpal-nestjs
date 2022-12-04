@@ -40,6 +40,10 @@ export class ZarinpalHttpClientService {
       );
 
       if (request.errors && request.errors.code < 0) {
+        if (request.data.code === -9) {
+          throw new ZarinpalError(-9, request.errors.validations);
+        }
+
         throw new ZarinpalError(request.errors.code);
       }
 
@@ -75,26 +79,6 @@ export class ZarinpalHttpClientService {
   }
 
   // -----------------------------------------------PrivateMethods|
-
-  private isValidResult(result: unknown) {
-    if (
-      result &&
-      typeof result === 'object' &&
-      ('Authorities' in result || 'Status' in result)
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  private parseJson(jsonData: string) {
-    try {
-      return JSON.parse(jsonData);
-    } catch (e) {
-      throw new Error('Error parsing JSON !');
-    }
-  }
 
   private getHeaders(): Headers {
     return new Headers({
