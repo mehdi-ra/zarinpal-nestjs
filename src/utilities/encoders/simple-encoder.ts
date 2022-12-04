@@ -53,7 +53,6 @@ export const zarinpalAuthorityDecode: ZarinpalAuthorityDecoder = function(
     const realPart = splittedCode[1];
 
     const newCode = ['A', zeroRepeat, realPart];
-
     return newCode.join('');
   } catch (e) {
     throw localErrorHandler(e);
