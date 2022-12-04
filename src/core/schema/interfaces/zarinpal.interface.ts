@@ -8,8 +8,8 @@ import fetch from 'node-fetch';
  */
 export interface ZarinpalOpenTransactionOptions {
   amount: number;
+  description: string;
   merchant_id?: string;
-  description?: string;
   callback_url?: string;
   metadata?: ZarinpalOpenRequestMetadata;
   currency?: ZarinpalSupportedCurrencies;
@@ -19,7 +19,7 @@ export interface ZarinpalResultErrors {
   errors?: {
     code: number;
     message: string;
-    validators?: [{ [key: string]: string }];
+    validations?: [{ [key: string]: string }];
   };
 }
 

@@ -9,12 +9,7 @@ export class ZarinpalError extends Error {
    */
   public statusCode!: number;
 
-  /**
-   * Logger that every log in this class should be
-   * outputted using this object.
-   */
-
-  constructor(public code: number) {
+  constructor(public code: number, public validationErrors?: unknown[]) {
     super();
     this.lookForError(code);
   }
@@ -31,12 +26,13 @@ export class ZarinpalError extends Error {
       );
 
       if (!error) {
-        throw new Error(`Error with code ${statusCode} not found !`);
+        this.message = `Error with code ${statusCode} not found !`;
+        return;
       }
 
       this.message = error.message;
       this.statusCode = error.httpStatusCode;
-      this.name = error.status.toString(); // Set name of error
+      this.name = error.status.toString();
     } catch (e) {
       this.message = (e as unknown) as string;
       this.statusCode = 500;

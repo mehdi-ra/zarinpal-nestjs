@@ -56,6 +56,10 @@ export class ZarinpalService {
         options.currency = this.currency;
       }
 
+      if (!options.description) {
+        throw new TypeError('Description is required.');
+      }
+
       return await this.httpService.openTransaction(options);
     } catch (e) {
       throw this.errorHandler(e);
@@ -113,11 +117,22 @@ export class ZarinpalService {
 
   /**
    * Generate url using Zarinpal Request Result
-   * @param {ZarinpalOpenTransactionResultData} result
-   * @returns { string }
+   * @param {ZarinpalOpenTransactionResultData} value
+   * @param {string} value
+   * @return { string } Url something like
+   * @TODO: Generate using authority code alone
    */
-  public generateStartPayUrl(result: ZarinpalRequestResultData): string {
-    return this.startUrl.replace(':Authority', result.authority);
+  public generateStartPayUrl(
+    value: Partial<ZarinpalRequestResultData> | string,
+  ): string {
+    if (typeof value !== 'string' && !value.authority) {
+      throw new Error('Problem in generating the startPayUrl');
+    }
+
+    return this.startUrl.replace(
+      ':Authority',
+      typeof value === 'string' ? value : value.authority!,
+    );
   }
 
   /**
