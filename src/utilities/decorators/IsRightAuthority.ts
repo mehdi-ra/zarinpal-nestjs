@@ -4,6 +4,8 @@ import {
   ValidationArguments,
 } from '@nestjs/class-validator';
 
+import { checkAuthorityCode } from './isRightAuthority.fn';
+
 export function IsRightAuthority(validationOptions?: ValidationOptions) {
   return function(object: Object, propertyName: string) {
     registerDecorator({
@@ -13,11 +15,7 @@ export function IsRightAuthority(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
-          return (
-            typeof value === 'string' &&
-            value.startsWith('A') &&
-            value.length === 36
-          ); // you can return a Promise<boolean> here as well, if you want to make async validation
+          return checkAuthorityCode(value);
         },
       },
     });
