@@ -24,25 +24,29 @@ export interface ZarinpalResultErrors {
 }
 
 export interface ZarinpalRequestResult extends ZarinpalResultErrors {
-  data: {
-    fee: number;
-    code: number;
-    message: string;
-    authority: string;
-    fee_type: 'Merchant';
-  };
+  data: Readonly<ZarinpalRequestResultData>;
+}
+
+export interface ZarinpalRequestResultData {
+  fee: number;
+  code: number;
+  message: string;
+  authority: string;
+  fee_type: 'Merchant';
 }
 
 export interface ZarinpalVerifyResult extends ZarinpalResultErrors {
-  data: {
-    fee: number;
-    code: number;
-    ref_id: number;
-    message: string;
-    card_pan: string;
-    fee_type: string;
-    card_hash: string;
-  };
+  data: Readonly<ZarinpalVerifyResultData>;
+}
+
+export interface ZarinpalVerifyResultData {
+  fee: number;
+  code: number;
+  ref_id: number;
+  message: string;
+  card_pan: string;
+  fee_type: string;
+  card_hash: string;
 }
 
 export interface ZarinpalOpenRequestMetadata {

@@ -2,11 +2,12 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from '../../core/constants/providers.const';
 
 import {
-  ZarinpalRequestResult,
   ZarinpalOpenTransactionOptions,
   ZarinpalVerifyTransactionOptions,
   ZarinpalSupportedCurrencies,
-  ZarinpalVerifyResult,
+  ZarinpalRequestResult,
+  ZarinpalRequestResultData,
+  ZarinpalVerifyResultData,
 } from '../../core/schema/interfaces/zarinpal.interface';
 
 import { ZarinpalError } from '../../utilities';
@@ -37,11 +38,11 @@ export class ZarinpalService {
   /**
    * Open transaction on database after you pass data
    * @param {ZarinpalOpenTransactionOptions} options
-   * @return {string} Redirect url
+   * @return {Readonly<ZarinpalRequestResultData>} Zarinpal request result.
    */
   public async openTransaction(
     options: ZarinpalOpenTransactionOptions,
-  ): Promise<ZarinpalRequestResult['data']> {
+  ): Promise<Readonly<ZarinpalRequestResultData>> {
     try {
       if (!options.callback_url) {
         options.callback_url = this.callbackUrl;
@@ -68,11 +69,11 @@ export class ZarinpalService {
    *
    * If not, Zarinpal will return the money back to user after
    * a certain amount of time.
-   * @deprecated Will be removed in version 2
+   * @deprecated Will be removed in version 2 use `verifyTransaction()` instead.
    */
   public async verifyRequest(
     verifyOptions: ZarinpalVerifyTransactionOptions,
-  ): Promise<ZarinpalVerifyResult['data']> {
+  ): Promise<Readonly<ZarinpalVerifyResultData>> {
     try {
       if (!verifyOptions.merchant_id) {
         verifyOptions.merchant_id = this.merchantId;
@@ -92,11 +93,11 @@ export class ZarinpalService {
    * If not, Zarinpal will return the money back to user after
    * a certain amount of time.s
    * @param {ZarinpalVerifyTransactionOptions} options
-   * @return {ZarinpalVerifyResult['data']}
+   * @return {ZarinpalVerifyTransactionResultData}
    */
   public async verifyTransaction(
     options: ZarinpalVerifyTransactionOptions,
-  ): Promise<ZarinpalVerifyResult['data']> {
+  ): Promise<Readonly<ZarinpalVerifyResultData>> {
     try {
       if (!options.merchant_id) {
         options.merchant_id = this.merchantId;
@@ -112,10 +113,10 @@ export class ZarinpalService {
 
   /**
    * Generate url using Zarinpal Request Result
-   * @param {ZarinpalRequestResult['data']} result
-   * @returns
+   * @param {ZarinpalOpenTransactionResultData} result
+   * @returns { string }
    */
-  public generateStartPayUrl(result: ZarinpalRequestResult['data']): string {
+  public generateStartPayUrl(result: ZarinpalRequestResultData): string {
     return this.startUrl.replace(':Authority', result.authority);
   }
 
