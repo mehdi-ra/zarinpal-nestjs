@@ -97,4 +97,24 @@ async verifyTransaction(@Query() query: ZarinpalVerifyQueryParams) {
     });
 }
 ```
+
+## Encode & Decode Authority code
+As you know authority code of transactions are pretty long and it's very bad practice to store them raw. You can encode and decode theme using two predefined functions as example:
+```
+import {
+  zarinpalAuthorityEncode,
+  zarinpalAuthorityDecode
+} from 'zarinpal-nestjs';
+
+const longAuthorityCode = 'A00000000000000000000000000387664294';
+const encodedAuthorityCode = zarinpalAuthorityEncode(longAuthorityCode);
+const decodedEncodedAuthorityCode =
+  zarinpalAuthorityDecode(encodedAuthorityCode);
+
+console.log({
+  encoded: encodedAuthorityCode, // 26x387664294
+  decoded: decodedEncodedAuthorityCode, // A00000000000000000000000000387664294
+});
+```
+
 for more information please read [Documentation](https://github.com/me-dira/zarinpal-nestjs/wiki).
