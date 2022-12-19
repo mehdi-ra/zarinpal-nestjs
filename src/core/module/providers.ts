@@ -6,6 +6,7 @@ import { ZarinpalModuleOptions } from '../schema/interfaces';
 // import axios from 'axios';
 import fetch from 'node-fetch';
 import { ZarinpalHttpClientService, ZarinpalService } from '../services';
+import { zarinpalAuthorityEncode } from 'src/utilities';
 
 export default (function(options: ZarinpalModuleOptions): Provider[] {
   return [
@@ -25,6 +26,11 @@ export default (function(options: ZarinpalModuleOptions): Provider[] {
     {
       provide: ZarinpalProvidersKey.HTTP_HELPER,
       useValue: fetch,
+    },
+
+    {
+      provide: ZarinpalProvidersKey.ZP_TRANSACTION_AUTHORITY_DECODER,
+      useFactory: zarinpalAuthorityEncode
     },
 
     { provide: ZarinpalProvidersKey.LOGGER, useValue: new Logger('Zarinpal') },

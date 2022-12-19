@@ -5,7 +5,8 @@ import { ZarinpalErrorCode } from '../../core/schema/interfaces';
 
 export class ZarinpalError extends Error {
   /**
-   * Http status code that is suitable to income request error.
+   * Http status code that is
+   * suitable to income request error.
    */
   public statusCode!: number;
 
