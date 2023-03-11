@@ -1,7 +1,7 @@
-name: I need HELP.
+name: I need help
 description: If you need any help, try this template.
 title: '[Help wanted]: '
-labels: ['needs-help']
+labels: ['help-wanted']
 body:
   - type: markdown
     attributes:
@@ -30,6 +30,6 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: The logs if needed
+      label: Logs (optional).
       description: Please put the logs here, If the logs are bigger than 10 lines put it into a file and send the link.
       render: shell
