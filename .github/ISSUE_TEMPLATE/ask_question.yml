@@ -14,7 +14,7 @@ body:
       label: Describe and write the question.
       description: Write the question so simple.
       placeholder: How can I install the ...
-      value: ''
+      value: 'How can I install the ...'
     validations:
       required: true
 
