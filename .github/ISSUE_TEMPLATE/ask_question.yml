@@ -1,0 +1,35 @@
+name: Need help
+description: Ask every question you have here.
+title: '[Need Help]: '
+labels: ['needs-help']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your attention, Ask your question and we will answer as soon as possible!
+
+  - type: checkboxes
+    id: base-checkbox
+    attributes:
+      label: Before anything
+      description: Before submitting the issue please read and check below checkboxes.
+      options:
+        - label: I Googled the problem.
+          required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Your problem?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Describe your problem completely!
+      value: 'When I was trying to run ...!'
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Related bugs
+      description: Please put the logs here, If the logs are bigger than 10 lines put it into a file and send the link.
+      render: shell
