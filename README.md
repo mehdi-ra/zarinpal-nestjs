@@ -32,7 +32,7 @@ The process is very simple and includes:
 ### installation
 Installation is very simple and can be done using below commands:
 
-```
+```bash
 yarn add zarinpal-nestjs
 npm install --save zarinpal-nestjs
 ```
@@ -40,7 +40,7 @@ npm install --save zarinpal-nestjs
 ### Register the module
 After successful installation you need to register `zarinpal-nestjs` module in your NestJs application:
 
-```
+```typescript
 @Module({
   imports: [
     ZarinpalModule.register({
@@ -58,7 +58,7 @@ export class AppModule {}
 ### Inject inside the class
 You can check one simple example of injecting the `service`:
 
-```
+```typescript
 import { ZarinpalService } from 'zarinpal-nestjs';
 @Controller('transaction')
 export class AppController {
@@ -70,7 +70,7 @@ export class AppController {
 
 ## Open transaction & Generate Start Pay URL
 As you know you need to redirect the user to the payment gate, then the user can pay the bill. After you open a transaction and get the authorization code, you can generate the URL using `transactionOpen` result like:
-```
+```typescript
   async openTransaction(): Promise<string> {
       const transactionResult = await this.zarinpalService.openTransaction({
         amount: 1000,
@@ -84,7 +84,7 @@ As you know you need to redirect the user to the payment gate, then the user can
 
 ## Verify transaction
 After user completes the payment process, will return to url you pass through Module registration and you can verify them like this:
-```
+```typescript
 @Get('verify')
 async verifyTransaction(@Query() query: ZarinpalVerifyQueryParams) {
     const transaction = await this.appService.findTransactionByAuthority(
@@ -100,7 +100,7 @@ async verifyTransaction(@Query() query: ZarinpalVerifyQueryParams) {
 
 ## Encode & Decode Authority code
 As you know authority code of transactions are pretty long and it's very bad practice to store them raw. You can encode and decode theme using two predefined functions as example:
-```
+```typescript
 import {
   zarinpalAuthorityEncode,
   zarinpalAuthorityDecode
