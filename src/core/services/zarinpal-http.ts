@@ -67,8 +67,7 @@ export class ZarinpalHttpClientService {
         this.verifyUrl,
         options,
       );
-
-      if (Array.isArray(request.errors) && request.errors.length > 0) {
+      if (request?.errors &&  Array.isArray(request.errors) && request.errors.length > 0) {
         throw new ZarinpalError(request.errors.code);
       }
 
