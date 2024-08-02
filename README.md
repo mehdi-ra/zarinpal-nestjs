@@ -1,7 +1,7 @@
 # Zarinpal Adaptor for `NestJs`.
 
 <p align="center">
-  <a href="" target="blank"><img src=".github/assets/logo.webp" width="200" alt="Nest Logo" /></a>
+  <a href="" target="blank"><img src=".github/assets/logo.webp" width="400" alt="Nest Logo" /></a>
 </p>
 
 For online support, you can join the Telegram group:
