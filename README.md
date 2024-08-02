@@ -1,13 +1,12 @@
 # Zarinpal Adaptor for `NestJs`.
 
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="" target="blank"><img src=".github/assets/logo.webp" width="200" alt="Nest Logo" /></a>
 </p>
 
-For online support, you can join telegram group:
+For online support, you can join the Telegram group:
 
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/+LQ3nF7Dfc3xjNGU8)
-
 
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
