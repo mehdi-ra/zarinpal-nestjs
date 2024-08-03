@@ -2,10 +2,9 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ZarinpalProvidersKey } from '../../core/constants/providers.const';
 
 import {
-  ZarinpalOpenTransactionOptions,
   ZarinpalVerifyTransactionOptions,
+  ZarinpalOpenTransactionOptions,
   ZarinpalSupportedCurrencies,
-  ZarinpalRequestResult,
   ZarinpalRequestResultData,
   ZarinpalVerifyResultData,
 } from '../../core/schema/interfaces/zarinpal.interface';
