@@ -132,3 +132,11 @@ console.log({
 ```
 
 for more information please read [Documentation](https://github.com/me-dira/zarinpal-nestjs/wiki).
+
+
+## Simple implementation example with mongoose and mongodb
+
+In this article there is simple example of how to use `zarinpal-nestjs` with `mongoose` and `mongodb`:
+
+[Integrating Zarinpal Payment Gateway in NestJS](https://blog.stackademic.com/integrating-zarinpal-payment-gateway-in-nestjs-12017908490d)
+
